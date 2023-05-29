@@ -23,6 +23,7 @@ import { getCartData } from '../../../redux/selectors/cartSelector';
 import PosUserModal from './pos-user-modal';
 import PosUserAddress from './pos-user-address';
 import DeliveryInfo from './delivery-info';
+import { InfiniteSelect } from 'components/infinite-select';
 
 export default function OrderTabs() {
   const { t } = useTranslation();
@@ -41,20 +42,23 @@ export default function OrderTabs() {
   const [users, setUsers] = useState([]);
   const [addressModal, setAddressModal] = useState(null);
   const [userModal, setUserModal] = useState(null);
+  const [links, setLinks] = useState(null);
   const cartData = useSelector((state) => getCartData(state.cart));
   const { payment_type: paymentRole } = useSelector(
     (state) => state.globalSettings.settings,
     shallowEqual
   );
 
-  async function getUsers(search) {
+  async function getUsers({ search, page }) {
     const params = {
       search,
       perPage: 10,
+      page: page,
     };
-    return userService.search(params).then(({ data }) => {
-      setUsers(data);
-      return formatUser(data);
+    return userService.search(params).then((res) => {
+      setLinks(res.links);
+      setUsers(res.data);
+      return formatUser(res.data);
     });
   }
 
@@ -216,7 +220,8 @@ export default function OrderTabs() {
                 rules={[{ required: true, message: '' }]}
                 className='w-100'
               >
-                <DebounceSelect
+                <InfiniteSelect
+                  hasMore={links?.next}
                   placeholder={t('select.client')}
                   fetchOptions={getUsers}
                   onSelect={selectUser}

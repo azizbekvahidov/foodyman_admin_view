@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, Input, Modal, Row, Space, Table } from 'antd';
+import { Button, Card, Col, Form, Input, Modal, Row, Space, Table } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import PropertyModal from './property-modal';
@@ -135,7 +135,7 @@ const ProductProperty = ({ next, prev }) => {
   }
 
   return (
-    <>
+    <Card>
       <Form layout='vertical' form={form} onFinish={onFinish}>
         <Row gutter={12} className='mb-3'>
           <Col span={8}>
@@ -190,7 +190,7 @@ const ProductProperty = ({ next, prev }) => {
           {t('next')}
         </Button>
       </Space>
-    </>
+    </Card>
   );
 };
 

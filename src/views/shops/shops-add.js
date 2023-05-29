@@ -11,7 +11,7 @@ const { Step } = Steps;
 
 export const steps = [
   {
-    title: 'restaurant',
+    title: 'shop',
     content: 'First-content',
   },
   {

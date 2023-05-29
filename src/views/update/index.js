@@ -23,10 +23,6 @@ export default function Update() {
       .finally(() => setLoadingBtn(false));
   };
 
-
-
-
-
   const createFile = (file) => {
     return {
       uid: file.title,
@@ -74,7 +70,6 @@ export default function Update() {
         name='file'
         multiple={false}
         maxCount={1}
-       
         customRequest={handleUpload}
         defaultFileList={activeMenu?.data ? [activeMenu?.data] : null}
         beforeUpload={beforeUpload}

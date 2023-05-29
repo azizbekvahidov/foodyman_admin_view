@@ -27,8 +27,9 @@ const UserRefunds = ({ id }) => {
 
   useEffect(() => {
     fetchRefunds();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
- 
+
   return (
     <Card
       title={t('order.refunds')}
@@ -68,7 +69,8 @@ const UserRefunds = ({ id }) => {
             title: t('total.price'),
             dataIndex: 'total_price',
             key: 'total_price',
-            render: (_, row) => numberToPrice(row.order?.total_price, defaultCurrency?.symbol),
+            render: (_, row) =>
+              numberToPrice(row.order?.total_price, defaultCurrency?.symbol),
           },
           {
             title: t('status'),

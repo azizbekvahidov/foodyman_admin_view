@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Table, Tooltip, Result } from 'antd';
-import { BASE_URL } from '../../configs/app-global';
+import { BASE_URL, api_url } from '../../configs/app-global';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { CloudDownloadOutlined } from '@ant-design/icons';
@@ -113,7 +113,7 @@ export default function Backup() {
     setLoadingBtn(true);
     axios
       .post(
-        'https://api.foodyman.org/api/v1/dashboard/admin/backup/history',
+        `${api_url}dashboard/admin/backup/history`,
         {},
         {
           headers: {

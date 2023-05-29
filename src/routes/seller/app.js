@@ -3,8 +3,16 @@ import { lazy } from 'react';
 
 const SellerAppRoutes = [
   {
-    path: 'seller/galleries',
-    component: lazy(() => import('views/seller-views/gallaries')),
+    path: 'my-shop',
+    component: lazy(() => import('views/seller-views/my-shop')),
+  },
+  {
+    path: 'my-shop/edit',
+    component: lazy(() => import('views/seller-views/my-shop/edit')),
+  },
+  {
+    path: 'seller/shop-users',
+    component: lazy(() => import('views/seller-views/user/shop-users')),
   },
   {
     path: 'seller/payouts',
@@ -29,6 +37,10 @@ const SellerAppRoutes = [
   {
     path: 'seller/pos-system',
     component: lazy(() => import('views/seller-views/pos-system')),
+  },
+  {
+    path: 'seller/booking',
+    component: lazy(() => import('views/seller-views/booking')),
   },
   {
     path: 'seller/refunds',

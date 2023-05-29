@@ -73,7 +73,7 @@ const ShopTag = () => {
       is_show: true,
       render: (_, row) => (
         <Space>
-          {row.locales.map((item, index) => (
+          {row.locales?.map((item, index) => (
             <Tag color={[colors[index]]} className='text-uppercase'>
               {item}
             </Tag>

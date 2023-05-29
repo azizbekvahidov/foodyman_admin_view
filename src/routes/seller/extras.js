@@ -5,7 +5,7 @@ const SellerExtrasImport = [
   {
     path: 'extras',
     component: lazy(() =>
-      import('views/eller-views/products/Extras/extra-group')
+      import('views/seller-views/products/Extras/extra-group')
     ),
   },
   {
@@ -16,7 +16,9 @@ const SellerExtrasImport = [
   },
   {
     path: 'catalog/extras/value',
-    component: lazy(() => import('views/products/Extras/extra-value')),
+    component: lazy(() =>
+      import('views/seller-views/products/Extras/extra-value')
+    ),
   },
 ];
 

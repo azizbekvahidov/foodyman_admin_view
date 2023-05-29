@@ -69,8 +69,24 @@ svg {
   pointer-events: none;
 }
 
-.ck-editor__editable {
-  min-height: 400px;
+.ck .ck-content {
+  height: 400px !important;
+  max-height: 400px !important;
+  border: 1px solid var(--input-border) !important;
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+  &:hover {
+    border: 1px solid var(--box-shadow);
+  }
+}
+
+.ck .ck-toolbar {
+  border: 1px solid var(--input-border) !important;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  &:hover {
+    border: 1px solid var(--box-shadow);
+  }
 }
 
 .ant-modal.large-modal {
@@ -191,7 +207,6 @@ svg {
 
   .antd-toast {
     color: var(--light-text);
-
     .Toastify__toast-theme--light {
       color: var(--light-text);
       background: var(--dark-blue);
@@ -199,6 +214,13 @@ svg {
 
     .Toastify__close-button--light {
       color: var(--light-text);
+    }
+    .Toastify__toast-body {
+      height: 60px !important;
+      color: var(--light-text);
+      font-size: 14px;
+      letter-spacing: 1px;
+      font-weight: 500;
     }
   }
 
@@ -796,4 +818,22 @@ a.ck.ck-button.ck-on {
 .hiddin-input {
   background: rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(20px) !important;
+}
+
+.search-outlined {
+  .ant-input-suffix {
+    opacity: 0;
+  }
+  &:hover {
+    .ant-input-suffix {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+}
+
+.search-outlined-none {
+  .ant-input-suffix {
+    opacity: 0;
+  }
 }

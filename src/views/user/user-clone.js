@@ -69,6 +69,7 @@ const UserClone = () => {
     if (activeMenu?.refetch) {
       showUserData(uuid);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu?.refetch]);
 
   const onChange = (key) => {

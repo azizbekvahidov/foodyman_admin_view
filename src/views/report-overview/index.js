@@ -73,7 +73,7 @@ const ReportOverview = () => {
       title: t('net.sales'),
       dataIndex: 'total_price',
       key: 'total_price',
-      render: (price) => numberToPrice(price, defaultCurrency?.symbol)
+      render: (price) => numberToPrice(price, defaultCurrency?.symbol),
     },
     {
       title: t('orders'),
@@ -185,7 +185,6 @@ const ReportOverview = () => {
   useDidUpdate(() => {
     fetchCategories();
   }, [date_to, by_time, date_from]);
-
 
   return (
     <Spin size='large' spinning={loading}>

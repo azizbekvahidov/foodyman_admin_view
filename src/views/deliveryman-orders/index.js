@@ -96,7 +96,7 @@ export default function DeliverymanOrders() {
       render: (transaction) => t(transaction?.payment_system?.tag) || '-',
     },
     {
-      title: t('created.at'),
+      title: 'created.at',
       dataIndex: 'created_at',
       key: 'created_at',
       is_show: true,

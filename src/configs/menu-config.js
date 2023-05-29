@@ -59,9 +59,9 @@ const adminRoutes = [
         children: [],
       },
       {
+        name: 'order.status',
         icon: 'RiFileSettingsLine',
         url: 'settings/orderStatus',
-        name: 'order.status',
         id: 'order.status',
         children: [],
       },
@@ -86,13 +86,6 @@ const adminRoutes = [
         url: 'deliveries/map',
         children: [],
       },
-      // {
-      //   name: 'delivery.orders',
-      //   icon: 'fiShoppingCart',
-      //   id: 'delivery_orders',
-      //   url: 'delivery/orders',
-      //   children: [],
-      // },
       {
         name: 'delivery.statistics',
         icon: 'ImStatsDots',
@@ -110,7 +103,7 @@ const adminRoutes = [
     ],
   },
   {
-    name: 'restaurant',
+    name: 'restaurants',
     id: 'restaurant.management_04',
     icon: 'shop',
     submenu: [
@@ -197,11 +190,19 @@ const adminRoutes = [
         id: 'categories',
         children: [],
       },
+
       {
         name: 'recipe.categories',
         icon: 'appStore',
         url: 'catalog/recipe-categories',
         id: 'recipe.categories',
+        children: [],
+      },
+      {
+        name: 'menu.categories',
+        icon: 'appStore',
+        url: 'catalog/menu/categories',
+        id: 'menu.categories',
         children: [],
       },
       {
@@ -224,6 +225,28 @@ const adminRoutes = [
         url: 'catalog/brands',
         id: 'brands',
         children: [],
+      },
+      {
+        name: 'career',
+        icon: 'CaretUpOutlined',
+        url: 'careers/list',
+        id: 'career.list',
+        children: [
+          {
+            name: 'career',
+            icon: 'caretUp',
+            url: 'catalog/career',
+            id: 'catalog.career',
+            children: [],
+          },
+          {
+            name: 'career.categories',
+            icon: 'careerCategory',
+            url: 'catalog/career-categories',
+            id: 'career.categories',
+            children: [],
+          },
+        ],
       },
       {
         name: 'units',
@@ -288,21 +311,21 @@ const adminRoutes = [
         id: 'user_list',
         children: [
           {
+            name: 'clients',
             icon: 'user',
             url: 'users/user',
-            name: 'clients',
             id: 'user',
           },
           {
+            name: 'users',
             icon: 'userGroupAdd',
             url: 'users/admin',
-            name: 'users',
             id: 'userGroupAdd',
           },
           {
+            name: 'roles',
             icon: 'userSwitch',
             url: 'users/role',
-            name: 'roles',
             id: 'userSwitch',
           },
         ],
@@ -314,15 +337,15 @@ const adminRoutes = [
         id: 'email.subscriber_01',
         children: [
           {
+            name: 'subscriber',
             icon: 'MdNotificationAdd',
             url: 'subscriber',
-            name: 'subscriber',
             id: 'subscriber',
           },
           {
+            name: 'message.subscriber',
             icon: 'MdNotificationAdd',
             url: 'message/subscriber',
-            name: 'message.subscriber',
             id: 'message.subscriber',
           },
         ],
@@ -377,15 +400,15 @@ const adminRoutes = [
         children: [],
       },
       {
+        name: 'referral',
         icon: 'referral',
         url: 'settings/referal',
-        name: 'referral',
         id: 'referral_02',
         children: [],
       },
       {
-        icon: 'GiftOutlined',
         name: 'bonus',
+        icon: 'GiftOutlined',
         url: 'bonus/list',
         id: 'bonus_02',
         children: [],
@@ -393,7 +416,7 @@ const adminRoutes = [
     ],
   },
   {
-    name: 'ANALYTICS.ADN.REPORTS',
+    name: 'analytics.and.reports',
     id: 'analytics',
     icon: 'products',
     submenu: [
@@ -454,91 +477,97 @@ const adminRoutes = [
     icon: 'settings',
     submenu: [
       {
+        name: 'settings.general',
         icon: 'settings',
         url: 'settings/general',
-        name: 'settings.general',
         id: 'settings.general_02',
         children: [],
       },
       {
+        name: 'currencies',
         icon: 'moneyCollect',
         url: 'currencies',
-        name: 'currencies',
         id: 'currencies',
         children: [],
       },
       {
+        name: 'payments',
         icon: 'wallet',
         url: 'settings/payments',
-        name: 'payments',
         id: 'payments',
         children: [],
       },
       {
+        name: 'payment.payloads',
         icon: 'payload',
         url: 'payment-payloads',
-        name: 'payment.payloads',
         id: 'payment.payloads',
         children: [],
       },
       {
+        name: 'sms-payload',
         icon: 'message',
-        url: 'settings/sms-gateways',
-        name: 'sms-gateways',
-        id: 'sms-gateways',
+        url: 'settings/sms-payload',
+        id: 'sms-payload',
         children: [],
       },
       {
+        name: 'email.provider',
         icon: 'emailSettings',
         url: 'settings/emailProviders',
-        name: 'email.provider',
         id: 'settings_email.provider_02',
         children: [],
       },
       {
+        name: 'notification.settings',
         icon: 'notificationsActive',
         url: 'settings/firebase',
-        name: 'notification.settings',
         id: 'notification.settings',
         children: [],
       },
       {
+        name: 'social.settings',
         icon: 'instagram',
         url: 'settings/social',
-        name: 'social.settings',
         id: 'instagram_social-settings_01',
         children: [],
       },
       {
+        name: 'app.settings',
         icon: 'GrAppleAppStore',
         url: 'settings/app',
-        name: 'app.settings',
         id: 'app-settings',
         children: [],
       },
       {
+        name: 'page.setup',
         icon: 'settings',
         url: 'settings',
-        name: 'page.setup',
         id: 'page.setup',
         children: [
           {
+            name: 'faq',
             icon: 'questionCircle',
             url: 'settings/faqs',
-            name: 'FAQ',
             id: 'faq',
           },
           {
+            name: 'terms',
             icon: 'paperClip',
             url: 'settings/terms',
-            name: 'terms',
             id: 'terms',
           },
           {
+            name: 'policy',
             icon: 'lock',
             url: 'settings/policy',
-            name: 'policy',
             id: 'policy',
+          },
+          {
+            name: 'pages',
+            icon: 'RiPageSeparator',
+            url: 'pages',
+            id: 'pages',
           },
         ],
       },
@@ -550,16 +579,16 @@ const adminRoutes = [
     icon: 'global',
     submenu: [
       {
+        name: 'languages',
         icon: 'global',
         url: 'settings/languages',
-        name: 'languages',
         id: 'languages_02',
         children: [],
       },
       {
+        name: 'translations',
         icon: 'translation',
         url: 'settings/translations',
-        name: 'translations',
         id: 'translations_01',
         children: [],
       },
@@ -571,17 +600,24 @@ const adminRoutes = [
         children: [],
       },
       {
+        name: 'system.information',
         icon: 'tool',
         url: 'settings/system-information',
-        name: 'system.information',
         id: 'settings/system-informations_tool_01',
         children: [],
       },
       {
+        name: 'update',
         icon: 'cloudUpload',
         url: 'settings/update',
-        name: 'update',
         id: 'update',
+        children: [],
+      },
+      {
+        icon: 'cloudUpload',
+        url: 'settings/bookingUpload',
+        name: 'bookingUpload',
+        id: 'bookingUpload',
         children: [],
       },
       {
@@ -689,13 +725,6 @@ const managerRoutes = [
         url: 'deliveries/map',
         children: [],
       },
-      // {
-      //   name: 'delivery.orders',
-      //   icon: 'fiShoppingCart',
-      //   id: 'delivery_orders',
-      //   url: 'delivery/orders',
-      //   children: [],
-      // },
       {
         name: 'delivery.statistics',
         icon: 'ImStatsDots',
@@ -1182,6 +1211,7 @@ const sellerRoutes = [
     icon: 'dashboard',
     url: 'dashboard',
     id: 'dashboard_03',
+    role: 'admin',
   },
   {
     name: 'pos.system',
@@ -1189,6 +1219,41 @@ const sellerRoutes = [
     url: 'seller/pos-system',
     id: 'pos-system',
   },
+  // {
+  //   name: 'reservation',
+  //   id: 'order_management',
+  //   icon: 'BookOutlined',
+  //   submenu: [
+  //     {
+  //       name: 'reservation',
+  //       icon: 'BsCalendarCheck',
+  //       url: 'seller/booking',
+  //       id: 'seller/booking',
+  //       children: [],
+  //     },
+  //     {
+  //       name: 'reservation.zone',
+  //       icon: 'BiMapPin',
+  //       url: 'seller/booking/zone',
+  //       id: 'seller-reservation-zone',
+  //       children: [],
+  //     },
+  //     {
+  //       name: 'reservation.tables',
+  //       icon: 'MdOutlineTableBar',
+  //       url: 'seller/booking/tables',
+  //       id: 'reservation-tables',
+  //       children: [],
+  //     },
+  //     {
+  //       name: 'reservation.time',
+  //       icon: 'AiOutlineFieldTime',
+  //       url: 'seller/booking/time',
+  //       id: 'reservation-time',
+  //       children: [],
+  //     },
+  //   ],
+  // },
   {
     name: 'order',
     id: 'order_management',
@@ -1217,7 +1282,6 @@ const sellerRoutes = [
       },
     ],
   },
-
   {
     name: 'restaurant',
     id: 'restaurants_management',
@@ -1405,17 +1469,6 @@ const sellerRoutes = [
       },
     ],
   },
-  // {
-  //   name: 'invites',
-  //   icon: 'orderedList',
-  //   url: 'seller/invites',
-  // },
-  // {
-  //   name: 'deliveryman',
-  //   icon: 'deliveryDining',
-  //   url: 'seller/delivery/deliveryman',
-  //   id: 'deliveryman',
-  // },
   {
     name: 'logout',
     icon: 'logout',
@@ -1502,10 +1555,40 @@ const deliverymanRoutes = [
   },
 ];
 
+const waiterRoutes = [
+  {
+    name: 'dashboard',
+    icon: 'dashboard',
+    url: 'dashboard',
+    id: 'dashboard_05',
+  },
+  {
+    name: 'order',
+    id: 'order_management',
+    icon: 'fiShoppingCart',
+    submenu: [
+      {
+        name: 'all.orders',
+        icon: 'fiShoppingCart',
+        url: 'waiter/orders-board',
+        id: 'orders-board',
+        children: [],
+      },
+    ],
+  },
+  {
+    name: 'logout',
+    icon: 'logout',
+    url: '',
+    id: 'logout_03',
+  },
+];
+
 export const data = {
   admin: adminRoutes,
   manager: managerRoutes,
   seller: sellerRoutes,
   moderator: moderatorRoutes,
   deliveryman: deliverymanRoutes,
+  waiter: waiterRoutes,
 };

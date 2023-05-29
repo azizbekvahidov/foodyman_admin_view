@@ -19,7 +19,7 @@ const AddonRoutes = [
     component: lazy(() => import('views/addons/addons-clone')),
   },
   {
-    path: 'catalog/addons/const',
+    path: 'catalog/addon/import',
     component: lazy(() => import('views/addons/addons-import')),
   },
 ];

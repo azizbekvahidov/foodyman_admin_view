@@ -381,7 +381,7 @@ const SellerAddons = () => {
               type='primary'
               onClick={goToAddProduct}
             >
-              {t('add.food')}
+              {t('addon.add')}
             </Button>
           </Space>
         }
@@ -439,7 +439,7 @@ const SellerAddons = () => {
       <CustomModal
         click={active ? handleActive : productDelete}
         text={
-          active ? t('set.active.food') : text ? t('delete') : t('all.delete')
+          active ? t('set.active.addon') : text ? t('delete') : t('all.delete')
         }
         loading={loadingBtn}
         setText={setId}

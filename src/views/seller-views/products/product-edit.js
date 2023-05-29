@@ -122,14 +122,16 @@ const SellerProductEdit = () => {
   };
 
   return (
-    <Card title={t('edit.food')} extra={<LanguageList />}>
-      <Steps current={current} onChange={onChange}>
-        {steps.map((item) => (
-          <Step title={t(item.title)} key={item.title} />
-        ))}
-      </Steps>
+    <>
+      <Card title={t('edit.food')} extra={<LanguageList />}>
+        <Steps current={current} onChange={onChange}>
+          {steps.map((item) => (
+            <Step title={t(item.title)} key={item.title} />
+          ))}
+        </Steps>
+      </Card>
       {!loading ? (
-        <div className='steps-content'>
+        <div className=''>
           {steps[current].content === 'First-content' && (
             <ProductsIndex next={next} action_type={'edit'} />
           )}
@@ -155,7 +157,7 @@ const SellerProductEdit = () => {
           <Spin size='large' className='py-5' />
         </div>
       )}
-    </Card>
+    </>
   );
 };
 export default SellerProductEdit;

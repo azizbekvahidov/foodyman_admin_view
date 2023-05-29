@@ -88,6 +88,17 @@ const DeliveriesList = () => {
     navigate(`/delivery/orders/${row.id}`);
   };
 
+  const goToAddDeliveryman = () => {
+    dispatch(
+      addMenu({
+        id: 'user-add-role',
+        url: `add/user/delivery/${'deliveryman'}`,
+        name: t(`add.${'deliveryman'}`),
+      })
+    );
+    navigate(`/add/user/delivery/${'deliveryman'}`);
+  };
+
   const handleCloseModal = () => {
     setLocationsMap(null);
     setDeliveryModal(null);
@@ -273,17 +284,6 @@ const DeliveriesList = () => {
       setIsModalVisible(true);
       setText(false);
     }
-  };
-
-  const goToAddDeliveryman = () => {
-    dispatch(
-      addMenu({
-        id: 'user-add-role',
-        url: `add/user/delivery/${'deliveryman'}`,
-        name: t(`add.${'deliveryman'}`),
-      })
-    );
-    navigate(`/add/user/delivery/${'deliveryman'}`);
   };
 
   const handleFilter = (item, name) => {

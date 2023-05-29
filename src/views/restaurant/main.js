@@ -56,7 +56,7 @@ const RestaurantMain = ({ next, action_type = '', user }) => {
       delivery_time_to: values.delivery_time_to,
       delivery_time_from: values.delivery_time_from,
       categories: values.categories.map((e) => e.value),
-      tags: values.tags.map((e) => e.value),
+      tags: values?.tags?.map((e) => e.value),
       user_id: values.user.value,
       open: undefined,
       'location[latitude]': location.lat,

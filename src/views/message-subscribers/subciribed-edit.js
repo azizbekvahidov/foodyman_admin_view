@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import {
   Button,
   Card,
-  Checkbox,
   Col,
   DatePicker,
   Form,
@@ -28,13 +27,18 @@ import { fetchMessageSubscriber } from '../../redux/slices/messegeSubscriber';
 import emailService from '../../services/emailSettings';
 import { DebounceSelect } from '../../components/search';
 
+const options = [
+  { title: 'order', value: 'order' },
+  { title: 'subscribe', value: 'subscribe' },
+  { title: 'verify', value: 'verify' },
+];
+
 const MessageSubciribedAdd = () => {
   const { t } = useTranslation();
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [hasDate, setHasDate] = useState(activeMenu.data?.has_date);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
@@ -42,8 +46,6 @@ const MessageSubciribedAdd = () => {
     (state) => state.formLang,
     shallowEqual
   );
-
-  const handleChange = (event) => setHasDate(event.target.checked);
 
   useEffect(() => {
     return () => {
@@ -59,7 +61,6 @@ const MessageSubciribedAdd = () => {
     messageSubscriberService
       .getById(id)
       .then((res) => {
-        setHasDate(true);
         const data = {
           ...res.data,
           send_to: moment(res.data.send_to, 'YYYY-MM-DD HH:mm:ss'),
@@ -78,6 +79,7 @@ const MessageSubciribedAdd = () => {
   };
 
   const onFinish = (values) => {
+    console.log('data', values);
     const body = {
       ...values,
       send_to: moment(values.send_to).format('YYYY-MM-DD HH:mm:ss'),
@@ -133,7 +135,6 @@ const MessageSubciribedAdd = () => {
             onFinish={onFinish}
             form={form}
             initialValues={{
-              type: 'order',
               ...activeMenu.data,
               ...getInitialValues(),
             }}
@@ -165,23 +166,7 @@ const MessageSubciribedAdd = () => {
                     },
                   ]}
                 >
-                  <Select>
-                    <Select.Option value={'order'}>
-                      <Tooltip title={t('order.information')}>
-                        {t('order')}
-                      </Tooltip>
-                    </Select.Option>
-                    <Select.Option value={'subscribe'}>
-                      <Tooltip title={t('subscribe.information')}>
-                        {t('subscribe')}
-                      </Tooltip>
-                    </Select.Option>
-                    <Select.Option value={'verify'}>
-                      <Tooltip title={t('verify.information')}>
-                        {t('verify')}
-                      </Tooltip>
-                    </Select.Option>
-                  </Select>
+                  <Select disabled options={options} className='w-100' />
                 </Form.Item>
               </Col>
               <Col span={12}>

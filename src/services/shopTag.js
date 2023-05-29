@@ -2,6 +2,8 @@ import request from './request';
 
 const shopTagService = {
   getAll: (params) => request.get('dashboard/admin/shop-tags', { params }),
+  getAllSeller: (params) =>
+    request.get('dashboard/seller/shop-tags/paginate', { params }),
   getById: (id, params) =>
     request.get(`dashboard/admin/shop-tags/${id}`, { params }),
   create: (data) => request.post('dashboard/admin/shop-tags', data, {}),

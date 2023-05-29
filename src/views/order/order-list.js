@@ -59,6 +59,7 @@ import shopService from '../../services/restaurant';
 import { batch } from 'react-redux';
 import { useQueryParams } from '../../helpers/useQueryParams';
 import OrderTypeSwitcher from './order-type-switcher';
+import useDemo from 'helpers/useDemo';
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
 
@@ -75,6 +76,7 @@ export default function OrderList() {
     (state) => state.orderStatus,
     shallowEqual
   );
+  const { isDemo } = useDemo();
   const [orderDetails, setOrderDetails] = useState(null);
   const [locationsMap, setLocationsMap] = useState(null);
   const [dowloadModal, setDowloadModal] = useState(null);
@@ -331,8 +333,13 @@ export default function OrderList() {
     perPage: data?.perPage,
     page: data?.page,
     user_id: data?.user_id,
-    status: data?.role !== 'deleted_at' && data?.role,
-    deleted_at: data?.role === 'deleted_at' ? 'deleted_at' : undefined,
+    status:
+      immutable === 'deleted_at'
+        ? undefined
+        : immutable === 'all'
+        ? undefined
+        : immutable,
+    deleted_at: immutable === 'deleted_at' ? 'deleted_at' : undefined,
     shop_id:
       activeMenu.data?.shop_id !== null ? activeMenu.data?.shop_id : null,
     delivery_type: type !== 'scheduled' ? type : undefined,
@@ -384,7 +391,7 @@ export default function OrderList() {
       .dropAll()
       .then(() => {
         toast.success(t('successfully.deleted'));
-        dispatch(fetchOrders());
+        dispatch(fetchOrders(paramsData));
         setRestore(null);
       })
       .finally(() => setLoadingBtn(false));
@@ -395,7 +402,7 @@ export default function OrderList() {
     orderService
       .restoreAll()
       .then(() => {
-        toast.success(t('successfully.restored'));
+        toast.success(t('it.will.take.some.time.to.return.the.files'));
         dispatch(fetchOrders(paramsData));
         setRestore(null);
       })
@@ -517,13 +524,29 @@ export default function OrderList() {
 
   const menu = (
     <Menu>
-      <Menu.Item onClick={() => setRestore({ delete: true })}>
+      <Menu.Item
+        onClick={() => {
+          if (isDemo) {
+            toast.warning(t('cannot.work.demo'));
+            return;
+          }
+          setRestore({ delete: true });
+        }}
+      >
         <Space>
           <DeleteOutlined />
           {t('delete.all')}
         </Space>
       </Menu.Item>
-      <Menu.Item onClick={() => setRestore({ restore: true })}>
+      <Menu.Item
+        onClick={() => {
+          if (isDemo) {
+            toast.warning(t('cannot.work.demo'));
+            return;
+          }
+          setRestore({ restore: true });
+        }}
+      >
         <Space>
           <FaTrashRestoreAlt />
           {t('restore.all')}

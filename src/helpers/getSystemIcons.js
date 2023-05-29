@@ -53,13 +53,16 @@ import {
   UngroupOutlined,
   ShoppingCartOutlined,
   CarOutlined,
+  SnippetsOutlined,
 } from '@ant-design/icons';
 import { FiClock, FiImage } from 'react-icons/fi';
-import { HiOutlineClipboardList } from 'react-icons/hi';
+import { HiOutlineChartBar, HiOutlineClipboardList } from 'react-icons/hi';
 import {
+  BsCalendarCheck,
   BsClockHistory,
   BsFillDiagram3Fill,
   BsImage,
+  BsInfoCircle,
   BsLightningCharge,
 } from 'react-icons/bs';
 import {
@@ -73,12 +76,19 @@ import {
 import { ImStatsDots, ImSubscript2 } from 'react-icons/im';
 import { HiOutlineReceiptRefund } from 'react-icons/hi';
 import { RiFileSettingsLine } from 'react-icons/ri';
-import { TbTruckDelivery, TbSitemap, TbTriangleSquareCircle } from 'react-icons/tb';
-import { AiOutlineClear } from 'react-icons/ai';
+import { BsBarChart } from 'react-icons/bs';
+
+import {
+  TbTruckDelivery,
+  TbSitemap,
+  TbTriangleSquareCircle,
+} from 'react-icons/tb';
+import { AiOutlineClear, AiOutlineFieldTime } from 'react-icons/ai';
 import { HiOutlinePuzzle } from 'react-icons/hi';
-import { BiCategoryAlt } from 'react-icons/bi';
+import { BiCategoryAlt, BiMapPin } from 'react-icons/bi';
 import { GiPayMoney } from 'react-icons/gi';
 import { GrAppleAppStore } from 'react-icons/gr';
+import { TbBrandAirtable } from 'react-icons/tb';
 
 export default function getSystemIcons(icon) {
   switch (icon) {
@@ -114,6 +124,8 @@ export default function getSystemIcons(icon) {
       return <UserAddOutlined />;
     case 'calendar':
       return <CalendarOutlined />;
+    case 'BsCalendarCheck':
+      return <BsCalendarCheck />;
     case 'euroCircle':
       return <EuroCircleOutlined />;
     case 'translation':
@@ -156,6 +168,14 @@ export default function getSystemIcons(icon) {
       return <MdOutlineNotificationsActive />;
     case 'imSubscript':
       return <ImSubscript2 />;
+    case 'caretUp':
+      return <BsBarChart />;
+    case 'info':
+      return <BsInfoCircle />;
+    case 'RiPageSeparator':
+      return <SnippetsOutlined />;
+    case 'AiOutlineFieldTime':
+      return <AiOutlineFieldTime />;
     case 'CarOutlined':
       return <CarOutlined />;
     case 'message':
@@ -208,6 +228,10 @@ export default function getSystemIcons(icon) {
       return <RadarChartOutlined />;
     case 'variation':
       return <BoxPlotOutlined />;
+    case 'CaretUpOutlined':
+      return <HiOutlineChartBar style={{ marginRight: '13px' }} />;
+    case 'careerCategory':
+      return <BiCategoryAlt />;
     case 'categories':
       return <SlidersOutlined />;
     case 'stock':
@@ -216,6 +240,8 @@ export default function getSystemIcons(icon) {
       return <TbTruckDelivery />;
     case 'TbSitemap':
       return <TbSitemap />;
+    case 'MdOutlineTableBar':
+      return <TbBrandAirtable />;
     case 'AiOutlineClear':
       return <AiOutlineClear />;
     case 'SlPuzzle':
@@ -242,8 +268,12 @@ export default function getSystemIcons(icon) {
       return <FiClock />;
     case 'payload':
       return <MdOutlinePayment />;
-    case 'recept' :
-      return <TbTriangleSquareCircle />
+    case 'recept':
+      return <TbTriangleSquareCircle />;
+    case 'BookOutlined':
+      return <BookOutlined />;
+    case 'BiMapPin':
+      return <BiMapPin />;
     default:
       break;
   }

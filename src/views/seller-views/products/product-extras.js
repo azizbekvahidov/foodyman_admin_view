@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Spin, Form, Row, Col, Checkbox, Button, Space } from 'antd';
+import { Spin, Form, Row, Col, Checkbox, Button, Space, Card } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import productService from '../../../services/seller/product';
 import { setMenuData } from '../../../redux/slices/menu';
@@ -55,33 +55,35 @@ const ProductExtras = ({ next, prev }) => {
   };
 
   return (
-    <Form
-      layout='vertical'
-      initialValues={{ ...activeMenu.data }}
-      onFinish={onFinish}
-    >
-      {!loading ? (
-        <>
-          <Row gutter={12}>
-            <Col span={12}>
-              <Form.Item label={t('extras')} name='extras'>
-                <Checkbox.Group options={extrasGroup} />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Space>
-            <Button onClick={prev}>{t('prev')}</Button>
-            <Button type='primary' htmlType='submit' loading={loadingBtn}>
-              {t('next')}
-            </Button>
-          </Space>
-        </>
-      ) : (
-        <div className='d-flex justify-content-center align-items-center'>
-          <Spin size='large' className='py-5' />
-        </div>
-      )}
-    </Form>
+    <Card>
+      <Form
+        layout='vertical'
+        initialValues={{ ...activeMenu.data }}
+        onFinish={onFinish}
+      >
+        {!loading ? (
+          <>
+            <Row gutter={12}>
+              <Col span={12}>
+                <Form.Item label={t('extras')} name='extras'>
+                  <Checkbox.Group options={extrasGroup} />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Space>
+              <Button onClick={prev}>{t('prev')}</Button>
+              <Button type='primary' htmlType='submit' loading={loadingBtn}>
+                {t('next')}
+              </Button>
+            </Space>
+          </>
+        ) : (
+          <div className='d-flex justify-content-center align-items-center'>
+            <Spin size='large' className='py-5' />
+          </div>
+        )}
+      </Form>
+    </Card>
   );
 };
 export default ProductExtras;

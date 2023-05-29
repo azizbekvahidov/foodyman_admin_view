@@ -16,15 +16,11 @@ import {
   Badge,
 } from 'antd';
 import { CalendarOutlined, EditOutlined } from '@ant-design/icons';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import orderService from '../../../services/seller/order';
 import getImage from '../../../helpers/getImage';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import {
-  addMenu,
-  disableRefetch,
-  setMenuData,
-} from '../../../redux/slices/menu';
+import { disableRefetch, setMenuData } from '../../../redux/slices/menu';
 import OrderStatusModal from './orderStatusModal';
 import OrderDeliveryman from './orderDeliveryman';
 import { fetchSellerDeliverymans } from '../../../redux/slices/deliveryman';
@@ -65,19 +61,7 @@ export default function SellerOrderDetails() {
   const [orderDetails, setOrderDetails] = useState(null);
   const [orderDeliveryDetails, setOrderDeliveryDetails] = useState(null);
   const [locationsMap, setLocationsMap] = useState(null);
-  const navigate = useNavigate();
-
-  // const goToEdit = (row) => {
-  //   dispatch(
-  //     addMenu({
-  //       url: `seller/order/${row}`,
-  //       id: 'order_details',
-  //       name: t('order.details'),
-  //     })
-  //   );
-  //   navigate(`/seller/order/${row}`);
-  // };
-
+  const { myShop } = useSelector((state) => state.myShop, shallowEqual);
   const columns = [
     {
       title: t('id'),
@@ -224,10 +208,13 @@ export default function SellerOrderDetails() {
   }
 
   useEffect(() => {
+    const data = {
+      shop_id: myShop.id,
+    };
     if (activeMenu.refetch) {
       fetchOrder();
       dispatch(fetchRestOrderStatus());
-      dispatch(fetchSellerDeliverymans());
+      dispatch(fetchSellerDeliverymans(data));
     }
   }, [activeMenu.refetch]);
 
@@ -253,13 +240,6 @@ export default function SellerOrderDetails() {
                   {t('change.status')}
                 </Button>
               ) : null}
-              {/* <Button
-                type='primary'
-                icon={<EditOutlined />}
-                onClick={() => goToEdit(data?.id)}
-              >
-                {t('edit')}
-              </Button> */}
             </Space>
           ) : (
             ''

@@ -57,6 +57,8 @@ export default function Admin() {
   const [role, setRole] = useState('admin');
   const [restore, setRestore] = useState(null);
   const immutable = activeMenu.data?.role || role;
+  const { user } = useSelector((state) => state.auth, shallowEqual);
+
   const {
     isDemo,
     demoDeliveryman,
@@ -144,23 +146,32 @@ export default function Admin() {
       render: (_, row) => {
         return (
           <Space>
-            <Button icon={<EyeOutlined />} onClick={() => goToDetail(row)} />
             <Button
               icon={<ExpandOutlined />}
               onClick={() => setUuid(row.uuid)}
             />
-            <Button
-              type='primary'
-              icon={<EditOutlined />}
-              onClick={() => goToEdit(row)}
-              disabled={
-                (isDemo && row?.id == demoDeliveryman) ||
-                (isDemo && row?.id == demoModerator) ||
-                (isDemo && row?.id == demoMeneger) ||
-                (isDemo && row?.id == demoSeller) ||
-                (isDemo && row?.id === demoAdmin)
-              }
-            />
+            {user.role === 'manager' && row.role === 'admin' ? undefined : (
+              <>
+                <Button
+                  icon={<EyeOutlined />}
+                  onClick={() => goToDetail(row)}
+                />
+                <Button
+                  type='primary'
+                  icon={<EditOutlined />}
+                  onClick={() => goToEdit(row)}
+                  disabled={
+                    /*eslint-disable eqeqeq*/
+                    (isDemo && row?.id == demoDeliveryman) ||
+                    (isDemo && row?.id == demoModerator) ||
+                    (isDemo && row?.id == demoMeneger) ||
+                    (isDemo && row?.id == demoSeller) ||
+                    (isDemo && row?.id == demoAdmin)
+                  }
+                />
+              </>
+            )}
+
             {row?.role !== 'admin' && (
               <Space>
                 <Button
@@ -257,6 +268,7 @@ export default function Admin() {
       dispatch(fetchUsers(paramsData));
       dispatch(disableRefetch(activeMenu));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu.refetch]);
 
   useDidUpdate(() => {

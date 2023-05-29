@@ -49,6 +49,10 @@
     position: relative;
     overflow: hidden;
     border-radius: 12px;
+    .gmnoprint {
+      position: absolute;
+      top: 70%;
+    }
   }
   .map-user-card {
     position: absolute;

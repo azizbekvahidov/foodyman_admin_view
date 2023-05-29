@@ -46,7 +46,7 @@ service.interceptors.response.use(
   },
   (error) => {
     let notificationParam = {
-      message: i18n.t(error.response.data.statusCode),
+      message: i18n.t(error.response?.data?.message),
     };
 
     // Remove token and redirect
@@ -56,20 +56,11 @@ service.interceptors.response.use(
     }
 
     if (error.response?.status === 508) {
-      notificationParam.message = 'Loop Detected';
+      notificationParam.message = error.response?.data?.message;
     }
 
     if (error.response?.status === 500) {
-      notificationParam.message = 'Internal Server Error';
-    }
-
-    if (error.response?.status === 404) {
-      notificationParam.message = 'Page not found';
-    }
-
-    if (error.response?.status === 400) {
-      notificationParam.message = 'Bad Request';
-      // error.response?.data?.message
+      notificationParam.message = error.response?.data?.message;
     }
 
     toast.error(notificationParam.message, {

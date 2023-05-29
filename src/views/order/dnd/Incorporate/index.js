@@ -121,19 +121,6 @@ const Incorporate = ({
     }
   };
 
-  const checkIsEmpty = () => {
-    const array = Object.keys(items).map((item) => {
-      if (items[item].length === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    if (array.includes(true)) return true;
-    else return false;
-  };
-
   const checkDisable = (index) => {
     if (index === 0 && currentCId === statuses.length - 1) return false;
     if (Boolean(currentCId > index)) return true;

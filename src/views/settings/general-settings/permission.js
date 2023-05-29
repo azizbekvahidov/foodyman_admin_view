@@ -44,7 +44,11 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('system.refund')}</b>
-                <p>You decide whether the project has a refund system or not</p>
+                <p>
+                  {t(
+                    'You.decide.whether.the.project.has.a.refund.system.or.not'
+                  )}
+                </p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='system_refund' valuePropName='checked'>
@@ -63,8 +67,9 @@ const Permission = () => {
               <Col span={12}>
                 <b>{t('order.auto.approved')}</b>
                 <p>
-                  When you create the status of the order, you choose the
-                  approved status
+                  {t(
+                    'When.you.create.the.status.of.the.order.you.choose.the.approved.status'
+                  )}
                 </p>
               </Col>
               <Col span={12} className='mt-3'>
@@ -84,7 +89,9 @@ const Permission = () => {
               <Col span={12}>
                 <b>{t('refund.delete')}</b>
                 <p>
-                  You decide whether to show the refund system disable button
+                  {t(
+                    'You.decide.whether.to.show.the.refund.system.disable.button'
+                  )}
                 </p>
               </Col>
               <Col span={12} className='mt-3'>
@@ -104,7 +111,9 @@ const Permission = () => {
               <Col span={12}>
                 <b>{t('order.auto.deliveryMan')}</b>
                 <p>
-                  You choose the deliveryman yourself when you create the order
+                  {t(
+                    'You.choose.the.deliveryman.yourself.when.you.create.the.order'
+                  )}
                 </p>
               </Col>
               <Col span={12} className='mt-3'>
@@ -128,7 +137,7 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('blog.active')}</b>
-                <p>You choose to display the blog page yourself</p>
+                <p>{t('You.choose.to.display.the.blog.page.yourself')}</p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='blog_active' valuePropName='checked'>
@@ -146,7 +155,7 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('prompt.email.modal')}</b>
-                <p>Send sms to email subscribers</p>
+                <p>{t('Send.sms.to.email.subscribers')}</p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='prompt_email_modal' valuePropName='checked'>
@@ -164,7 +173,7 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('referral.active')}</b>
-                <p>You choose whether the referral will work or not</p>
+                <p>{t('You.choose.whether.the.referral.will.work.or.not')}</p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='referral_active' valuePropName='checked'>
@@ -182,7 +191,7 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('aws.active')}</b>
-                <p>You choose whether the aws will work or not</p>
+                <p>{t('You.choose.whether.the.aws.will.work.or.not')}</p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='aws' valuePropName='checked'>
@@ -201,7 +210,9 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('by.subscription')}</b>
-                <p>You choose whether the by subscription will work or not</p>
+                <p>
+                  {t('You.choose.whether.the.by.subscription.will.work.or.not')}
+                </p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='by_subscription' valuePropName='checked'>
@@ -220,7 +231,7 @@ const Permission = () => {
             <Row gutter={24}>
               <Col span={12}>
                 <b>{t('group.order')}</b>
-                <p>You choose whether enable group order or not</p>
+                <p>{t('You.choose.whether.enable.group.order.or.not')}</p>
               </Col>
               <Col span={12} className='mt-3'>
                 <Form.Item name='group_order' valuePropName='checked'>
@@ -230,6 +241,58 @@ const Permission = () => {
                     loading={loadingBtn}
                     disabled={isDemo}
                     onChange={(e) => updateSettings({ group_order: e })}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Col>
+          <Col span={24}>
+            <Row gutter={24}>
+              <Col span={12}>
+                <b>{t('reservation_enable_for_user')}</b>
+                <p>
+                  {t(
+                    'You.choose.whether.enable.reservation.enable.for.user.or.not'
+                  )}
+                </p>
+              </Col>
+              <Col span={12} className='mt-3'>
+                <Form.Item
+                  name='reservation_enable_for_user'
+                  valuePropName='checked'
+                >
+                  <Switch
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    loading={loadingBtn}
+                    disabled={isDemo}
+                    onChange={(e) =>
+                      updateSettings({ reservation_enable_for_user: e })
+                    }
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Col>
+          <Col span={24}>
+            <Row gutter={24}>
+              <Col span={12}>
+                <b>{t('is_demo')}</b>
+                <p>
+                  {t(
+                    'You.choose.whether.enable.reservation.enable.for.is.demo.or.not'
+                  )}
+                </p>
+              </Col>
+              <Col span={12} className='mt-3'>
+                <Form.Item name='is_demo' valuePropName='checked'>
+                  <Switch
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    loading={loadingBtn}
+                    onChange={(e) =>
+                      updateSettings({ reservation_enable_for_user: e })
+                    }
                   />
                 </Form.Item>
               </Col>

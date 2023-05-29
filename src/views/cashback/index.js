@@ -3,19 +3,15 @@ import {
   EditOutlined,
   PlusCircleOutlined,
 } from '@ant-design/icons';
-import { Button, Card, Dropdown, Menu, Space, Switch, Table } from 'antd';
+import { Button, Card, Space, Switch, Table } from 'antd';
 import moment from 'moment';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaTrashRestoreAlt } from 'react-icons/fa';
-import { MdDeleteSweep } from 'react-icons/md';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import CheckIsDemo from '../../components/check-is-demo';
 import DeleteButton from '../../components/delete-button';
 import FilterColumns from '../../components/filter-column';
 import CustomModal from '../../components/modal';
-import ResultModal from '../../components/result-modal';
 import { Context } from '../../context/context';
 import formatSortType from '../../helpers/formatSortType';
 import numberToPrice from '../../helpers/numberToPrice';
@@ -241,7 +237,7 @@ export default function Cashback() {
       <CustomModal
         click={type ? handleActive : pointDelete}
         text={
-          type ? t('set.active.banner') : text ? t('delete') : t('all.delete')
+          type ? t('set.active.cashback') : text ? t('delete') : t('all.delete')
         }
         loading={loadingBtn}
         setText={setId}

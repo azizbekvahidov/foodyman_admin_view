@@ -100,7 +100,7 @@ export default function LanguageAdd() {
   }, [activeMenu.refetch]);
 
   const options = lang.map((item) => ({
-    label: item?.Native_name.toUpperCase() + ' ' + `( ${item.Language_name} )`,
+    label: item?.Native_name.toUpperCase() + ' ' + item.Language_name,
     value: item.short_code,
     key: item.Native_name,
   }));

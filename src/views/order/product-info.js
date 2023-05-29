@@ -57,7 +57,7 @@ const ProductInfo = ({ form }) => {
   }
 
   async function fetchCategories(search) {
-    const params = { search };
+    const params = { search, type: 'main' };
     return categoryService.search(params).then(({ data }) =>
       data.map((item) => ({
         label: item.translation?.title,

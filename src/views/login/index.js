@@ -21,7 +21,6 @@ import {
 } from '../../redux/slices/globalSettings';
 import { useTranslation } from 'react-i18next';
 import { PROJECT_NAME } from '../../configs/app-global';
-import { requestForToken } from '../../firebase';
 const { Title } = Typography;
 
 const credentials = [
@@ -45,6 +44,10 @@ const credentials = [
     login: 'delivery@githubit.com',
     password: 'delivery',
   },
+  // {
+  //   login: 'waiter@githubit.com',
+  //   password: '123456',
+  // },
 ];
 
 const Login = () => {

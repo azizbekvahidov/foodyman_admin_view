@@ -23,6 +23,18 @@ const DeliveryRoutes = [
     component: lazy(() => import('views/delivery-orders/order-delivery')),
   },
   {
+    path: 'user/delivery/:uuid',
+    component: lazy(() => import('views/user/user-edit')),
+  },
+  {
+    path: 'add/user/delivery/:role',
+    component: lazy(() => import('views/user/user-add-role')),
+  },
+  {
+    path: 'user/delivery/:uuid',
+    component: lazy(() => import('views/user/user-edit')),
+  },
+  {
     path: 'delivery/orders',
     component: lazy(() => import('views/delivery-orders')),
   },

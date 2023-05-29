@@ -63,6 +63,7 @@ const ShopMain = ({ next }) => {
       user: undefined,
       delivery_time: 0,
       type: myShop.type === 'shop' ? 'shop' : 'restaurant',
+      tags: values.tags.map((e) => e.value),
     };
     shopUpdate(values, body);
   };

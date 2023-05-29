@@ -26,17 +26,6 @@ export default function SellerDeliveryBoyReviews() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const goToDetail = (row) => {
-    dispatch(
-      addMenu({
-        url: `/users/user/${row.uuid}`,
-        id: 'user_info',
-        name: t('user.info'),
-      })
-    );
-    navigate(`/users/user/${row.uuid}`, { state: { user_id: row.id } });
-  };
-
   const goToOrder = (id) => {
     dispatch(
       addMenu({
@@ -67,7 +56,7 @@ export default function SellerDeliveryBoyReviews() {
       key: 'user',
       is_show: true,
       render: (user) => (
-        <div className='text-hover' onClick={() => goToDetail(user)}>
+        <div className='text-hover'>
           {user?.firstname} {user?.lastname || ''}
         </div>
       ),
@@ -78,7 +67,7 @@ export default function SellerDeliveryBoyReviews() {
       key: 'deliveryman',
       is_show: true,
       render: (user) => (
-        <div className='text-hover' onClick={() => goToDetail(user)}>
+        <div className='text-hover'>
           {user?.firstname} {user?.lastname || ''}
         </div>
       ),
@@ -110,14 +99,6 @@ export default function SellerDeliveryBoyReviews() {
               icon={<EyeOutlined />}
               onClick={() => setShow(row.id)}
             />
-            {/* <DeleteButton
-              icon={<DeleteOutlined />}
-              onClick={() => {
-                setId([row.id]);
-                setIsModalVisible(true);
-                setText(true);
-              }}
-            /> */}
           </Space>
         );
       },

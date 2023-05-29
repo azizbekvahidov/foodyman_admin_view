@@ -8,11 +8,11 @@ const SellerBrandRoutes = [
   },
   {
     path: 'seller/brand/add',
-    component: lazy(() => import('views/brands/brands/brand-add')),
+    component: lazy(() => import('views/seller-views/brands/brand-add')),
   },
   {
     path: 'seller/brand/:id',
-    component: lazy(() => import('views/brands/brands/brand-edit')),
+    component: lazy(() => import('views/seller-views/brands/brand-edit')),
   },
 ];
 

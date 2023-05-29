@@ -226,6 +226,7 @@ const User = () => {
       dispatch(fetchClients(paramsData));
       dispatch(disableRefetch(activeMenu));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu.refetch]);
 
   useDidUpdate(() => {

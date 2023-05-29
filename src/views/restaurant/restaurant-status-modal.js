@@ -37,7 +37,7 @@ export default function RestaurantStatusModal({
   return (
     <Modal
       visible={!!data}
-      title={data.name}
+      title={t(data.name)}
       onCancel={handleCancel}
       footer={[
         <Button

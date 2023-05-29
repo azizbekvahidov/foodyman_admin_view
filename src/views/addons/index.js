@@ -40,7 +40,7 @@ const AddonsCategories = () => {
   const navigate = useNavigate();
   const [productDetails, setProductDetails] = useState(null);
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
-  const [role, setRole] = useState('published');
+  const [role, setRole] = useState('all');
 
   const [columns, setColumns] = useState([
     {
@@ -303,7 +303,6 @@ const AddonsCategories = () => {
     if (activeMenu.refetch) {
       dispatch(fetchAddons(paramsData));
       dispatch(disableRefetch(activeMenu));
-      setRole('published');
     }
   }, [activeMenu.refetch]);
 
@@ -461,7 +460,7 @@ const AddonsCategories = () => {
             icon={<PlusCircleOutlined />}
             onClick={goToAddProduct}
           >
-            {t('add.food')}
+            {t('addon.add')}
           </Button>
           <FilterColumns columns={columns} setColumns={setColumns} />
         </Space>

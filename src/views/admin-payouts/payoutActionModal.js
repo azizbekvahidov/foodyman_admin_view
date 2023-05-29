@@ -50,6 +50,9 @@ export default function PayoutRequestModal({ data, handleCancel }) {
       title={t('pay.to.seller')}
       onCancel={handleCancel}
       footer={[
+        <Button key='calcel-btn' onClick={handleCancel}>
+          {t('cancel')}
+        </Button>,
         <Button
           key='pay-btn'
           type='primary'
@@ -71,7 +74,10 @@ export default function PayoutRequestModal({ data, handleCancel }) {
             value: data?.currency?.id,
             label: `${data?.currency?.title} (${data?.currency?.symbol})`,
           },
-          payment_id:data?.payment && { value: data?.payment?.id, label: data?.payment?.tag },
+          payment_id: data?.payment && {
+            value: data?.payment?.id,
+            label: data?.payment?.tag,
+          },
           created_by: data?.createdBy && {
             value: data?.createdBy?.id,
             label: `${data?.createdBy?.firstname} ${

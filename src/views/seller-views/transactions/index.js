@@ -42,7 +42,7 @@ export default function SellerTransactions() {
       is_show: true,
       render: (user) => (
         <div>
-          {user.firstname} {user.lastname || ''}
+          {user?.firstname} {user?.lastname || ''}
         </div>
       ),
     },

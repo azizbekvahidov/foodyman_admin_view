@@ -65,6 +65,11 @@ export default function MyShopEdit() {
             value: item.id,
             key: item.id,
           })),
+          tags: res.data?.tags?.map((item) => ({
+            label: item?.translation?.title,
+            value: item.id,
+            key: item.id,
+          })),
         };
         dispatch(setMenuData({ activeMenu, data }));
       })

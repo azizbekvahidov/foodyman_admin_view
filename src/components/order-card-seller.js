@@ -15,8 +15,6 @@ import { Avatar, Card, List, Skeleton, Space } from 'antd';
 import { IMG_URL } from '../configs/app-global';
 import numberToPrice from '../helpers/numberToPrice';
 import moment from 'moment';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
 import { BiMap } from 'react-icons/bi';
 import useDemo from '../helpers/useDemo';
 const { Meta } = Card;

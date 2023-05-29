@@ -17,7 +17,6 @@ import { addMenu, disableRefetch, setMenuData } from '../../redux/slices/menu';
 import productService from '../../services/product';
 import { fetchProducts } from '../../redux/slices/product';
 import useDidUpdate from '../../helpers/useDidUpdate';
-import { DebounceSelect } from '../../components/search';
 import brandService from '../../services/brand';
 import categoryService from '../../services/category';
 import shopService from '../../services/restaurant';
@@ -31,7 +30,7 @@ import { FaTrashRestoreAlt } from 'react-icons/fa';
 import ResultModal from '../../components/result-modal';
 import RiveResult from '../../components/rive-result';
 import { CgExport, CgImport } from 'react-icons/cg';
-
+import { InfiniteSelect } from 'components/infinite-select';
 const colors = ['blue', 'red', 'gold', 'volcano', 'cyan', 'lime'];
 const roles = ['all', 'pending', 'published', 'unpublished', 'deleted_at'];
 const { TabPane } = Tabs;
@@ -45,6 +44,7 @@ const ProductCategories = () => {
   const [text, setText] = useState(null);
   const [restore, setRestore] = useState(null);
   const [role, setRole] = useState('all');
+  const [links, setLinks] = useState(null);
 
   const clearData = () => {
     dispatch(
@@ -357,36 +357,48 @@ const ProductCategories = () => {
     navigate(`/product/add`);
   };
 
-  async function fetchBrands(search) {
-    return brandService.search(search).then(({ data }) =>
-      data.map((item) => ({
+  async function fetchBrands({ search, page }) {
+    const params = {
+      search: search?.length === 0 ? undefined : search,
+      page: page,
+    };
+    return brandService.search(params).then((res) => {
+      setLinks(res.links);
+      return res.data.map((item) => ({
         label: item.title,
         value: item.id,
-      }))
-    );
+      }));
+    });
   }
 
-  async function fetchCategories(search) {
+  async function fetchCategories({ search, page }) {
     const params = {
-      search: search.length === 0 ? null : search,
+      search: search?.length === 0 ? undefined : search,
       type: 'main',
+      page: page,
     };
-    return categoryService.search(params).then(({ data }) =>
-      data.map((item) => ({
+    return categoryService.search(params).then((res) => {
+      setLinks(res.links);
+      return res.data.map((item) => ({
         label: item.translation?.title,
         value: item.id,
-      }))
-    );
+      }));
+    });
   }
 
-  async function fetchUserShop(search) {
-    const params = { search, status: 'approved' };
-    return shopService.search(params).then((res) =>
-      res.data.map((item) => ({
+  async function fetchUserShop({ search, page }) {
+    const params = {
+      search: search?.length === 0 ? undefined : search,
+      status: 'approved',
+      page: page,
+    };
+    return shopService.search(params).then((res) => {
+      setLinks(res.links);
+      return res.data.map((item) => ({
         label: item.translation !== null ? item.translation.title : 'no name',
         value: item.id,
-      }))
-    );
+      }));
+    });
   }
 
   const handleFilter = (items) => {
@@ -435,23 +447,30 @@ const ProductCategories = () => {
             resetSearch={!activeMenu.data?.search}
             style={{ minWidth: 300 }}
           />
-          <DebounceSelect
+          <InfiniteSelect
             placeholder={t('select.shop')}
+            hasMore={links?.next}
+            loading={loading}
             fetchOptions={fetchUserShop}
             style={{ minWidth: 180 }}
             onChange={(e) => handleFilter({ shop: e })}
             value={activeMenu.data?.shop}
           />
-          <DebounceSelect
+
+          <InfiniteSelect
             placeholder={t('select.category')}
             fetchOptions={fetchCategories}
+            hasMore={links?.next}
+            loading={loading}
             style={{ minWidth: 180 }}
             onChange={(e) => handleFilter({ category: e })}
             value={activeMenu.data?.category}
           />
-          <DebounceSelect
+          <InfiniteSelect
             placeholder={t('select.brand')}
             fetchOptions={fetchBrands}
+            hasMore={links?.next}
+            loading={loading}
             style={{ minWidth: 180 }}
             onChange={(e) => handleFilter({ brand: e })}
             value={activeMenu.data?.brand}

@@ -26,6 +26,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "node-sass": "^7.0.1",
+    "qrcode.react": "^3.1.0",
     "qs": "^6.11.0",
     "react": "^17.0.0",
     "react-apexcharts": "^1.4.0",
@@ -34,7 +35,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-day-picker": "^8.4.1",
     "react-dom": "^17.0.0",
-    "react-google-autocomplete": "^2.7.0",
+    "react-google-autocomplete": "^2.7.3",
     "react-i18next": "^11.18.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
@@ -51,7 +52,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

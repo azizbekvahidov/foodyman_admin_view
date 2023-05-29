@@ -102,7 +102,9 @@ const ReportProducts = () => {
       sorter: (a, b) => a?.products_count - b?.products_count,
       render: (_, data) => {
         return (
-          <a onClick={() => goToProductReport(data)}>{data?.products_count}</a>
+          <span onClick={() => goToProductReport(data)}>
+            {data?.products_count}
+          </span>
         );
       },
       is_show: true,
@@ -187,7 +189,6 @@ const ReportProducts = () => {
       .finally(() => setDownloading(false));
   };
 
-  console.log('tableData', Object.keys(productList));
   return (
     <Spin size='large' spinning={loading}>
       <Row gutter={24} className='mb-3'>

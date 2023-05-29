@@ -128,7 +128,7 @@ const ProductBonusAdd = () => {
   };
 
   return (
-    <Card title={t('add.bonus')} className='h-100'>
+    <Card title={t('edit.bonus')} className='h-100'>
       {!loading ? (
         <Form
           name='bonus-add'

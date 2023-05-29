@@ -250,7 +250,6 @@ const Sidebar = () => {
               )
             )}
           </Menu>
-          {/* <div style={{ paddingTop: 50 }} /> */}
         </Scrollbars>
       </Sider>
 

@@ -1,15 +1,27 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Space } from 'antd';
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  Space,
+} from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
+const { Option } = Select;
 
 const ReceptNutritions = ({ prev, loading }) => {
   const { t } = useTranslation();
+
   const { defaultLang, languages } = useSelector(
     (state) => state.formLang,
     shallowEqual
   );
+
   return (
     <>
       <Row gutter={12}>
@@ -59,7 +71,7 @@ const ReceptNutritions = ({ prev, loading }) => {
                           },
                         ]}
                       >
-                        <Input className='w-100' />
+                        <InputNumber max={191} enterButton className='w-100' />
                       </Form.Item>
                     </Col>
                     <Col span={7}>
@@ -74,7 +86,11 @@ const ReceptNutritions = ({ prev, loading }) => {
                           },
                         ]}
                       >
-                        <Input className='w-100' />
+                        <InputNumber
+                          addonAfter={'%'}
+                          max={100}
+                          className='w-100'
+                        />
                       </Form.Item>
                     </Col>
                     {i !== 0 && (

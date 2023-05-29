@@ -40,7 +40,7 @@ export default function Transactions() {
       is_show: true,
       render: (user) => (
         <div>
-          {user.firstname} {user.lastname || ''}
+          {user?.firstname} {user?.lastname || ''}
         </div>
       ),
     },

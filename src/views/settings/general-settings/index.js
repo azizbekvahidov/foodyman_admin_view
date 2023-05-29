@@ -58,6 +58,10 @@ export default function GeneralSettings() {
         data.blog_active = data.blog_active === '1' ? true : false;
         data.referral_active = data.referral_active === '1' ? true : false;
         data.aws = data.aws === '1' ? true : false;
+        data.group_order = data.group_order === '1' ? true : false;
+        data.by_subscription = data.by_subscription === '1' ? true : false;
+        data.reservation_enable_for_user =
+          data.reservation_enable_for_user === '1' ? true : false;
         data.location = {
           lat: Number(locationArray?.[0]),
           lng: Number(locationArray?.[1]),

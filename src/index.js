@@ -12,12 +12,6 @@ import './assets/scss/index.scss';
 import PageLoading from './components/pageLoading';
 import { ReportContextProvider } from './context/report';
 
-if (process.env.NODE_ENV === 'production') {
-  console.log = () => {};
-  console.error = () => {};
-  console.debug = () => {};
-}
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

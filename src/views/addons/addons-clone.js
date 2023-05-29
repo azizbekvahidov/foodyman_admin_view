@@ -105,7 +105,7 @@ const AddonClone = () => {
   };
 
   return (
-    <Card title={t('clone.product')} extra={<LanguageList />}>
+    <Card title={t('clone.addon')} extra={<LanguageList />}>
       <Steps current={current} onChange={onChange}>
         {steps.map((item) => (
           <Step title={t(item.title)} key={item.title} />

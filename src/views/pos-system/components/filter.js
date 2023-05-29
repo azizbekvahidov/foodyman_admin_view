@@ -14,6 +14,7 @@ import { fetchRestPayments } from '../../../redux/slices/payment';
 import { disableRefetch } from '../../../redux/slices/menu';
 import { getCartData } from '../../../redux/selectors/cartSelector';
 import restPaymentService from '../../../services/rest/payment';
+import { InfiniteSelect } from 'components/infinite-select';
 
 const Filter = () => {
   const { t } = useTranslation();
@@ -27,34 +28,39 @@ const Filter = () => {
 
   const activeShop = getFirstShopFromList(allShops[0]);
   const cartData = useSelector((state) => getCartData(state.cart));
+  const [links, setLinks] = useState(null);
 
-  async function fetchUserShop(search) {
-    const params = { search, status: 'approved' };
-    return shopService.search(params).then((res) =>
-      res.data.map((item) => ({
+  async function fetchUserShop({ search, page }) {
+    const params = { search, page, status: 'approved' };
+    return shopService.search(params).then((res) => {
+      setLinks(res.links);
+      return res.data.map((item) => ({
         label: item.translation !== null ? item.translation.title : 'no name',
         value: item.id,
-      }))
-    );
+      }));
+    });
   }
 
-  async function fetchUserBrand(username) {
-    return brandService.search(username).then((res) =>
-      res.data.map((item) => ({
+  async function fetchUserBrand({ search, page = 1 }) {
+    const params = { search, page };
+    return brandService.search(params).then((res) => {
+      setLinks(res.links);
+      return res.data.map((item) => ({
         label: item.title,
         value: item.id,
-      }))
-    );
+      }));
+    });
   }
 
-  async function fetchUserCategory(search) {
-    const params = { search, type: 'main' };
-    return categoryService.search(params).then((res) =>
-      res.data.map((item) => ({
+  async function fetchUserCategory({ search, page }) {
+    const params = { search, page, type: 'main' };
+    return categoryService.search(params).then((res) => {
+      setLinks(res.links);
+      return res.data.map((item) => ({
         label: item.translation !== null ? item.translation.title : 'no name',
         value: item.id,
-      }))
-    );
+      }));
+    });
   }
 
   async function fetchSellerPayments() {
@@ -112,8 +118,9 @@ const Filter = () => {
           />
         </Col>
         <Col span={6}>
-          <DebounceSelect
+          <InfiniteSelect
             className='w-100'
+            hasMore={links?.next}
             debounceTimeout={500}
             placeholder={t('select.shop')}
             fetchOptions={fetchUserShop}
@@ -126,8 +133,9 @@ const Filter = () => {
           />
         </Col>
         <Col span={6}>
-          <DebounceSelect
+          <InfiniteSelect
             className='w-100'
+            hasMore={links?.next}
             placeholder={t('select.category')}
             fetchOptions={fetchUserCategory}
             onChange={(value) => setCategory(value)}
@@ -135,7 +143,8 @@ const Filter = () => {
           />
         </Col>
         <Col span={6}>
-          <DebounceSelect
+          <InfiniteSelect
+            hasMore={links?.next}
             className='w-100'
             placeholder={t('select.brand')}
             fetchOptions={fetchUserBrand}

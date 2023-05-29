@@ -11,7 +11,7 @@ import categoryService from '../../services/category';
 
 const { TextArea } = Input;
 
-const ReceptMain = ({ next, image, setImage }) => {
+const ReceptMain = ({ next, image, setImage, back, setBack }) => {
   const { t } = useTranslation();
   const form = Form.useFormInstance();
   const { defaultLang, languages } = useSelector(
@@ -20,12 +20,14 @@ const ReceptMain = ({ next, image, setImage }) => {
   );
 
   function fetchCategory() {
-    return categoryService.getAll({ active: 1, type: 'receipt' }).then((res) => {
-      return res.data.map((category) => ({
-        label: category.translation.title,
-        value: category.id,
-      }));
-    });
+    return categoryService
+      .getAll({ active: 1, type: 'receipt' })
+      .then((res) => {
+        return res.data.map((category) => ({
+          label: category.translation.title,
+          value: category.id,
+        }));
+      });
   }
 
   async function fetchShops(search) {
@@ -196,6 +198,17 @@ const ReceptMain = ({ next, image, setImage }) => {
         </Col>
 
         <Col span={12}>
+          <Form.Item label={t('background')}>
+            <MediaUpload
+              type='receipts'
+              imageList={back}
+              setImageList={setBack}
+              form={form}
+              multiple={false}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
           <Form.Item label={t('image')}>
             <MediaUpload
               type='receipts'
@@ -222,7 +235,7 @@ const ReceptMain = ({ next, image, setImage }) => {
               'discount_type',
               'discount_price',
               'category_id',
-              'shop_id'
+              'shop_id',
             ])
             .then((value) => {
               next();

@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import LanguageList from '../../components/language-list';
 import { steps } from './steps';
 import recieptService from '../../services/reciept';
+import { IMG_URL } from 'configs/app-global';
 
 const { Step } = Steps;
 
@@ -19,9 +20,23 @@ const ReceptAdd = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
+  const createImage = (name) => {
+    return {
+      name,
+      url: IMG_URL + name,
+    };
+  };
   const [image, setImage] = useState(
-    activeMenu.data?.image ? [activeMenu.data?.image] : []
+    activeMenu.data?.galleries?.[0]
+      ? [createImage(activeMenu.data?.galleries?.[0].path)]
+      : []
   );
+  const [back, setBack] = useState(
+    activeMenu.data?.galleries?.[1]
+      ? [createImage(activeMenu.data?.galleries?.[1].path)]
+      : []
+  );
+  const images = [...image, ...back];
 
   const [current, setCurrent] = useState(activeMenu.data?.step || 0);
 
@@ -47,9 +62,14 @@ const ReceptAdd = () => {
     form.validateFields();
     const body = {
       ...values,
-      images: image?.map((img) => img.name),
+      images: images.map((img) => img.name),
       category_id: values.category_id.value,
       shop_id: values.shop_id.value,
+      nutrition: values.nutrition.map((item) => ({
+        ...item,
+        percentage: String(item.percentage),
+        weight: String(item.weight),
+      })),
       stocks: values.stocks?.map((stock) => ({
         min_quantity: stock.min_quantity,
         stock_id: stock.stock_id.value,
@@ -95,6 +115,8 @@ const ReceptAdd = () => {
                 loading={loadingBtn}
                 image={image}
                 setImage={setImage}
+                back={back}
+                setBack={setBack}
               />
             </div>
           );

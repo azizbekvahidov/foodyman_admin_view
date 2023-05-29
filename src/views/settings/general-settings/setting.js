@@ -99,6 +99,28 @@ const Setting = ({ setFavicon, favicon, setLogo, logo }) => {
         </Col>
         <Col span={12}>
           <Form.Item
+            label={t('reservetion_time_durations')}
+            name='reservetion_time_durations'
+          >
+            <Select options={Time} />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            label={t('qrcode.base.url')}
+            name='qrcode_base_url'
+            rules={[
+              {
+                required: true,
+                message: t('required'),
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
             label={t('payment.type')}
             name='payment_type'
             rules={[

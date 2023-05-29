@@ -35,6 +35,7 @@ export default function UserAddRole() {
   const [error, setError] = useState(null);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user, shallowEqual);
   const { role } = useParams();
   const { settings } = useSelector(
     (state) => state.globalSettings,
@@ -50,6 +51,7 @@ export default function UserAddRole() {
         setMenuData({ activeMenu, data: { ...activeMenu.data, ...data } })
       );
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const changeData = (data, dataText) => setDate(dataText);
@@ -82,9 +84,11 @@ export default function UserAddRole() {
       gender: values.gender,
       password_confirmation: values.password_confirmation,
       password: values.password,
-      images: [image[0]?.name],
+      images: image[0] ? [image[0]?.name] : undefined,
       shop_id: values?.shop_id
-        ? values?.shop_id?.map((item) => item.value)
+        ? values?.shop_id.length !== undefined
+          ? values?.shop_id?.map((item) => item.value)
+          : [values?.shop_id.value]
         : undefined,
       role: role ? role : undefined,
     };
@@ -95,29 +99,40 @@ export default function UserAddRole() {
     userService
       .create(body)
       .then(({ data }) => {
-        const params = {
-          color: values.color,
-          number: values.number,
-          type_of_technique: values.type_of_technique,
-          brand: values.brand,
-          model: values.model,
-          user_id: data.id,
-          images: image.map((img) => img.name),
-          location: {
-            latitude: location.lat,
-            longitude: location.lng,
-          },
-        };
-        deliveryService.create(params).then(() => {
-          toast.success(t('successfully.created'));
-          dispatch(removeFromMenu({ ...activeMenu, nextUrl }));
-          navigate(`/${nextUrl}`);
-          dispatch(
-            locations.pathname.search('/user/delivery/')
-              ? fetchDelivery()
-              : fetchUsers({ role: role })
-          );
-        });
+        if (role === 'deliveryman') {
+          const params = {
+            color: values.color,
+            number: values.number,
+            type_of_technique: values.type_of_technique,
+            brand: values.brand,
+            model: values.model,
+            user_id: data.id,
+            images: image.map((img) => img.name),
+            location: {
+              latitude: location.lat,
+              longitude: location.lng,
+            },
+          };
+          deliveryService.create(params).then(() => {
+            toast.success(t('successfully.created'));
+            dispatch(removeFromMenu({ ...activeMenu, nextUrl }));
+            navigate(`/${nextUrl}`);
+            dispatch(
+              locations.pathname.search('/user/delivery/')
+                ? fetchDelivery()
+                : fetchUsers({ role: role })
+            );
+          });
+        } else {
+          const menu = 'users/admin';
+          const userParamsData = {
+            ...user.params,
+            role: data.role,
+          };
+          dispatch(removeFromMenu({ ...activeMenu, menu }));
+          navigate(`/${menu}`);
+          dispatch(fetchUsers(userParamsData));
+        }
       })
       .catch((err) => setError(err.response.data.params))
       .finally(() => setLoadingBtn(false));
@@ -250,6 +265,7 @@ export default function UserAddRole() {
 
           {role !== 'admin' &&
             role !== 'manager' &&
+            role !== 'moderator' &&
             role !== 'seller' &&
             role !== 'user' && (
               <Col span={12}>
@@ -268,6 +284,23 @@ export default function UserAddRole() {
                 </Form.Item>
               </Col>
             )}
+
+          {role === 'moderator' && (
+            <Col span={12}>
+              <Form.Item
+                label={t('branches')}
+                name='shop_id'
+                rules={[{ required: true, message: t('required') }]}
+              >
+                <DebounceSelect
+                  fetchOptions={fetchUserShop}
+                  className='w-100'
+                  placeholder={t('select.shop')}
+                  allowClear={false}
+                />
+              </Form.Item>
+            </Col>
+          )}
 
           <Col span={12}>
             <Form.Item
@@ -302,18 +335,19 @@ export default function UserAddRole() {
             </Form.Item>
           </Col>
 
-          <Divider className='pt-3 pb-3' dashed orientation='left' plain>
-            {t('deliveryman.settings')}
-          </Divider>
-
           {role === 'deliveryman' && (
-            <DelivertSetting
-              setLocation={setLocation}
-              location={location}
-              setImage={setFields}
-              image={fields}
-              form={form}
-            />
+            <>
+              <Divider className='pt-3 pb-3' dashed orientation='left' plain>
+                {t('deliveryman.settings')}
+              </Divider>
+              <DelivertSetting
+                setLocation={setLocation}
+                location={location}
+                setImage={setFields}
+                image={fields}
+                form={form}
+              />
+            </>
           )}
           <Col span={24}>
             <Button type='primary' htmlType='submit' loading={loadingBtn}>

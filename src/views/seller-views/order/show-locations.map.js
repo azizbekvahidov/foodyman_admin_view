@@ -177,10 +177,11 @@ const ShowLocationsMap = ({ id, handleCancel }) => {
                 >
                   <GoogleMapReact
                     bootstrapURLKeys={{
-                      key: google_map_key || MAP_API_KEY,
+                      key: MAP_API_KEY || google_map_key,
                     }}
-                    defaultZoom={14}
+                    defaultZoom={15}
                     center={center}
+                    yesIWantToUseGoogleMapApiInternals
                     options={{
                       fullscreenControl: false,
                     }}

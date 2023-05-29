@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import smsService from '../../services/smsGateways';
+import smsService from '../../services/smsPayloads';
 
 const initialState = {
   loading: false,

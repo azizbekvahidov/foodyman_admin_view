@@ -1,5 +1,6 @@
 export const PROJECT_NAME = 'Foodyman marketplace';
-export const BASE_URL = 'https://api.foodyman.org';
+export const BASE_URL =
+  process.env.REACT_APP_BASE_URL || 'https://api.foodyman.org';
 export const WEBSITE_URL = 'https://foodyman.org';
 export const api_url = BASE_URL + '/api/v1/';
 export const api_url_admin = BASE_URL + '/api/v1/dashboard/admin/';
@@ -11,6 +12,9 @@ export const example = BASE_URL + '/';
 
 export const VAPID_KEY =
   'BHFv5NaxfCmJ9s2VPGdSG9TZ5gdux45UOpJW9fUDoFeqAsXv8XFZmzMI7vp84B6QAKiCD1eMy8E4M9f1RRPfRR0';
+
+export const LAT = 47.4143302506288;
+export const LNG = 8.532059477976883;
 
 export const API_KEY = 'AIzaSyC-94TkEzZAFhV4XLq9q-EmWsx_z1_ZARo';
 export const AUTH_DOMAIN = 'foodyman-703bd.firebaseapp.com';

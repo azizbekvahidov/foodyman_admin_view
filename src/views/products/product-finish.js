@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Descriptions, Row, Space, Spin } from 'antd';
+import { Button, Card, Col, Descriptions, Row, Space, Spin } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { removeFromMenu } from '../../redux/slices/menu';
@@ -75,30 +75,35 @@ const ProductFinish = ({ prev }) => {
   }, []);
 
   return !loading ? (
-    <>
-      <Descriptions title={t('product.info')} bordered>
-        <Descriptions.Item label={`${t('title')} (${defaultLang})`} span={3}>
+    <Card title={t('product.info')}>
+      <Descriptions bordered>
+        <Descriptions.Item
+          label={`${t('title')} (${defaultLang})`}
+          span={3}
+          column={3}
+        >
           {data[`title[${defaultLang}]`]}
         </Descriptions.Item>
         <Descriptions.Item
           label={`${t('description')} (${defaultLang})`}
           span={3}
+          column={3}
         >
           {data[`description[${defaultLang}]`]}
         </Descriptions.Item>
-        <Descriptions.Item label={t('shop')} span={1.5}>
+        <Descriptions.Item label={t('shop')} span={1.5} column={1.5}>
           {data.shop?.translation.title}
         </Descriptions.Item>
-        <Descriptions.Item label={t('category')} span={1.5}>
+        <Descriptions.Item label={t('category')} span={1.5} column={1.5}>
           {data.category?.translation.title}
         </Descriptions.Item>
-        <Descriptions.Item label={t('brand')} span={1.5}>
+        <Descriptions.Item label={t('brand')} span={1.5} column={1.5}>
           {data.brand?.title}
         </Descriptions.Item>
-        <Descriptions.Item label={t('unit')} span={1.5}>
+        <Descriptions.Item label={t('unit')} span={1.5} column={1.5}>
           {data.unit?.translation.title}
         </Descriptions.Item>
-        <Descriptions.Item label={t('images')} span={3}>
+        <Descriptions.Item label={t('images')} span={3} column={3}>
           <Row gutter={12}>
             {data?.galleries?.map((item, idx) => (
               <Col key={'image' + idx}>
@@ -107,11 +112,13 @@ const ProductFinish = ({ prev }) => {
             ))}
           </Row>
         </Descriptions.Item>
-        <Descriptions.Item label={t('tax')}>{data.tax}</Descriptions.Item>
-        <Descriptions.Item label={t('min.quantity')}>
+        <Descriptions.Item span={3} column={3} label={t('tax')}>
+          {data.tax}
+        </Descriptions.Item>
+        <Descriptions.Item span={3} column={3} label={t('min.quantity')}>
           {data.min_qty}
         </Descriptions.Item>
-        <Descriptions.Item label={t('max.quantity')}>
+        <Descriptions.Item span={3} column={3} label={t('max.quantity')}>
           {data.max_qty}
         </Descriptions.Item>
       </Descriptions>
@@ -121,16 +128,18 @@ const ProductFinish = ({ prev }) => {
         }
         return (
           <Descriptions key={'desc' + idx} bordered className='mt-4'>
-            <Descriptions.Item label={t('price')} span={2}>
+            <Descriptions.Item label={t('price')} span={2} column={2}>
               {item.price}
             </Descriptions.Item>
-            <Descriptions.Item label={t('quantity')} span={2}>
+            <Descriptions.Item label={t('quantity')} span={2} column={2}>
               {item.quantity}
             </Descriptions.Item>
             {item.extras.map((extra, idx) => (
               <Descriptions.Item
                 key={'extra' + idx}
                 label={extra?.group?.translation?.title}
+                span={2}
+                column={2}
               >
                 {extra?.value}
               </Descriptions.Item>
@@ -146,7 +155,7 @@ const ProductFinish = ({ prev }) => {
           </Button>
         </Space>
       </div>
-    </>
+    </Card>
   ) : (
     <div className='d-flex justify-content-center align-items-center'>
       <Spin size='large' className='py-5' />

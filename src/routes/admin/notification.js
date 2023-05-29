@@ -14,6 +14,10 @@ const NotificationRoutes = [
     path: 'notification/:uuid',
     component: lazy(() => import('views/notification/notification-edit')),
   },
+  {
+    path: 'notification-clone/:uuid',
+    component: lazy(() => import('views/notification/notification-clone')),
+  },
 ];
 
 export default NotificationRoutes;

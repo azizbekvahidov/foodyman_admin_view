@@ -41,6 +41,7 @@ export default function UserAdd() {
         setMenuData({ activeMenu, data: { ...activeMenu.data, ...data } })
       );
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onFinish = (values) => {
@@ -54,7 +55,7 @@ export default function UserAdd() {
       gender: values.gender,
       password_confirmation: values.password_confirmation,
       password: values.password,
-      images: [image[0]?.name],
+      images: image[0] ? [image[0]?.name] : undefined,
     };
     const nextUrl = 'users/user';
     userService

@@ -16,15 +16,23 @@ const UploadMedia = ({
   const { t } = useTranslation();
   const [currentType, setCurrentType] = useState(null);
   const folder = [
-    'languages',
-    'categories',
-    'shops',
-    'brands',
-    'products',
-    'extras',
-    'users',
     'restaurant',
+    'shops',
     'deliveryman',
+    'banners',
+    'brands',
+    'blogs',
+    'categories',
+    'coupons',
+    'discounts',
+    'extras',
+    'reviews',
+    'receipts',
+    'order_refunds',
+    'users',
+    'products',
+    'languages',
+    'referral',
     'shop-tags',
   ];
   return (
@@ -42,9 +50,9 @@ const UploadMedia = ({
       ) : (
         <Card className='media-upload-gallery-container'>
           <Row gutter={[24, 24]}>
-            {folder.map((item) => {
+            {folder.map((item, index) => {
               return (
-                <Col {...colLg}>
+                <Col {...colLg} key={index}>
                   <Card
                     cover={<BsFolder className='icon-folder' />}
                     className='folder'

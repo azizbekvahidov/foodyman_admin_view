@@ -15,7 +15,7 @@ const ShopRoutes = [
     component: lazy(() => import('views/shops/shop-edit')),
   },
   {
-    path: 'shop/:uuid',
+    path: 'shop-clone/:uuid',
     component: lazy(() => import('views/shops/shop-clone')),
   },
 ];

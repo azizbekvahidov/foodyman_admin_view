@@ -7,7 +7,7 @@ import { InboxOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { toast } from 'react-toastify';
 import { setMenuData } from '../../redux/slices/menu';
 import { fetchCategories } from '../../redux/slices/category';
-import { example, export_url } from '../../configs/app-global';
+import { example } from '../../configs/app-global';
 import bannerService from '../../services/banner';
 
 export default function ProductImport() {

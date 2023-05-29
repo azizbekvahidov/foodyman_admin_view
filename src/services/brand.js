@@ -13,8 +13,7 @@ const brandService = {
     request.put(`dashboard/admin/brands/${id}`, {}, { params }),
   delete: (params) =>
     request.delete(`dashboard/admin/brands/delete`, { params }),
-  search: (search = '') =>
-    request.get(`dashboard/admin/brands/search?search=${search}`),
+  search: (params) => request.get(`dashboard/admin/brands/search`, { params }),
   dropAll: () => request.get(`dashboard/admin/brands/drop/all`),
   restoreAll: () => request.get(`dashboard/admin/brands/restore/all`),
 };

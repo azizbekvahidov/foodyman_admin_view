@@ -39,10 +39,6 @@ export default function CkeEditor({ form, lang, languages }) {
     };
   }
 
-  const handleChange = (e, editor) => {
-    const data = editor.getData();
-  };
-
   return (
     <React.Fragment>
       {languages.map((item) => (
@@ -68,7 +64,6 @@ export default function CkeEditor({ form, lang, languages }) {
             config={{
               extraPlugins: [uploadPlugin],
             }}
-            onChange={handleChange}
             onBlur={(event, editor) => {
               const data = editor.getData();
               form.setFieldsValue({

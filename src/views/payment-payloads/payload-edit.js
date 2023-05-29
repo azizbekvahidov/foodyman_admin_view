@@ -21,12 +21,13 @@ import {
 import { useTranslation } from 'react-i18next';
 import Paystack from '../../assets/images/paystack.svg';
 import { FaPaypal } from 'react-icons/fa';
-import { SiStripe, SiRazorpay } from 'react-icons/si';
+import { SiStripe, SiRazorpay, SiFlutter } from 'react-icons/si';
 import { paymentPayloadService } from '../../services/paymentPayload';
 import { AsyncSelect } from '../../components/async-select';
 import currencyService from '../../services/currency';
 import i18n from '../../configs/i18next';
 import { fetchPaymentPayloads } from '../../redux/slices/paymentPayload';
+import MediaUpload from '../../components/upload';
 
 const PaymentPayloadEdit = () => {
   const { t } = useTranslation();
@@ -39,6 +40,9 @@ const PaymentPayloadEdit = () => {
   const [loading, setLoading] = useState(false);
   const { languages } = useSelector((state) => state.formLang, shallowEqual);
   const [activePayment, setActivePayment] = useState(null);
+  const [image, setImage] = useState(
+    activeMenu.data?.image ? [activeMenu.data?.image] : []
+  );
   const { defaultCurrency } = useSelector(
     (state) => state.currency,
     shallowEqual
@@ -50,6 +54,13 @@ const PaymentPayloadEdit = () => {
       dispatch(setMenuData({ activeMenu, data }));
     };
   }, []);
+
+  const createImage = (name) => {
+    return {
+      name,
+      url: name,
+    };
+  };
 
   const getPayload = (id) => {
     setLoading(true);
@@ -65,6 +76,7 @@ const PaymentPayloadEdit = () => {
           payment_id: data.payment.tag,
           paypal_validate_ssl: Boolean(data.payload.paypal_validate_ssl),
         });
+        setImage([createImage(data.payload.logo)]);
       })
       .finally(() => {
         setLoading(false);
@@ -79,11 +91,13 @@ const PaymentPayloadEdit = () => {
       payment_id: activePayment.value,
       payload: {
         ...values,
+        logo: image[0] ? image[0].name : undefined,
         paypal_validate_ssl: values?.paypal_validate_ssl
           ? Number(values.paypal_validate_ssl)
           : undefined,
       },
     };
+
     paymentPayloadService
       .update(id, body)
       .then(() => {
@@ -112,6 +126,8 @@ const PaymentPayloadEdit = () => {
         return <SiRazorpay size={80} />;
       case 'Paystack':
         return <img src={Paystack} alt='img' width='80' height='80' />;
+      case 'flutterWave':
+        return <SiFlutter size={80} />;
       default:
         return null;
     }
@@ -162,8 +178,11 @@ const PaymentPayloadEdit = () => {
               ''
             ) : (
               <>
-                <Col span={24} offset={10}>
-                  <>{handleAddIcon(activePayment?.label)}</>
+                <Col
+                  span={24}
+                  className='d-flex justify-content-center mt-4 mb-5'
+                >
+                  {handleAddIcon(activePayment?.label)}
                 </Col>
 
                 {activePayment?.label === 'paystack' ? (
@@ -448,6 +467,92 @@ const PaymentPayloadEdit = () => {
                                 }));
                             })
                           }
+                        />
+                      </Form.Item>
+                    </Col>
+                  </>
+                ) : activePayment?.label === 'flutterWave' ? (
+                  <>
+                    <Col span={12}>
+                      <Form.Item
+                        label={t('payload.title')}
+                        name='title'
+                        rules={[{ required: true, message: t('required') }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={t('payload.description')}
+                        name='description'
+                        rules={[{ required: true, message: t('required') }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={t('flw_pk')}
+                        name='flw_pk'
+                        rules={[{ required: true, message: t('required') }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={t('flw_sk')}
+                        name='flw_sk'
+                        rules={[{ required: true, message: t('required') }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>{' '}
+                    <Col span={12}>
+                      <Form.Item
+                        label={t('key')}
+                        name='key'
+                        rules={[{ required: true, message: t('required') }]}
+                      >
+                        <Input />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item
+                        label={t('currency')}
+                        name='currency'
+                        rules={[{ required: true, message: t('required') }]}
+                      >
+                        <AsyncSelect
+                          placeholder={t('select.currency')}
+                          valuePropName='label'
+                          defaultValue={{
+                            value: defaultCurrency.id,
+                            label: defaultCurrency.title,
+                          }}
+                          fetchOptions={() =>
+                            currencyService.getAll().then(({ data }) => {
+                              return data
+                                .filter((item) => item.active)
+                                .map((item) => ({
+                                  value: item.id,
+                                  label: `${item.title}`,
+                                  key: item.id,
+                                }));
+                            })
+                          }
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={6}>
+                      <Form.Item label={t('logo')}>
+                        <MediaUpload
+                          type='brands'
+                          imageList={image}
+                          setImageList={setImage}
+                          form={form}
+                          multiple={false}
                         />
                       </Form.Item>
                     </Col>

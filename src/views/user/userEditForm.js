@@ -46,6 +46,7 @@ export default function UserEditForm({
   const { isDemo } = useDemo();
 
   const onFinish = (values) => {
+    console.log('values?.shop_id', values?.shop_id.length);
     setLoadingBtn(true);
     const body = {
       firstname: values.firstname,
@@ -54,8 +55,12 @@ export default function UserEditForm({
       phone: isDemo ? undefined : values?.phone,
       birthday: moment(date).format('YYYY-MM-DD'),
       gender: values.gender,
-      images: [image[0]?.name],
-      shop_id: values?.shop_id?.map((item) => item.value),
+      images: image[0] ? [image[0]?.name] : undefined,
+      shop_id: values?.shop_id
+        ? values?.shop_id.length !== undefined
+          ? values?.shop_id?.map((item) => item.value)
+          : [values?.shop_id.value]
+        : undefined,
       role: role,
     };
 
@@ -220,11 +225,12 @@ export default function UserEditForm({
 
         {role !== 'admin' &&
           role !== 'manager' &&
+          role !== 'moderator' &&
           role !== 'seller' &&
           role !== 'user' && (
             <Col span={12}>
               <Form.Item
-                label={t('shop/restaurant')}
+                label={t('branches')}
                 name='shop_id'
                 rules={[{ required: false, message: t('required') }]}
               >
@@ -238,6 +244,23 @@ export default function UserEditForm({
               </Form.Item>
             </Col>
           )}
+
+        {role === 'moderator' && (
+          <Col span={12}>
+            <Form.Item
+              label={t('branches')}
+              name='shop_id'
+              rules={[{ required: false, message: t('required') }]}
+            >
+              <DebounceSelect
+                fetchOptions={fetchUserShop}
+                className='w-100'
+                placeholder={t('select.shop')}
+                allowClear={false}
+              />
+            </Form.Item>
+          </Col>
+        )}
 
         <Col span={24}>
           <Button type='primary' htmlType='submit' loading={loadingBtn}>

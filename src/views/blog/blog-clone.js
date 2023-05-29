@@ -9,7 +9,6 @@ import {
   removeFromMenu,
   setMenuData,
 } from '../../redux/slices/menu';
-import ImageUploadSingle from '../../components/image-upload-single';
 import { fetchBlogs } from '../../redux/slices/blog';
 import blogService from '../../services/blog';
 import LanguageList from '../../components/language-list';

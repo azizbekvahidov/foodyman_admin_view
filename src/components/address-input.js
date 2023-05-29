@@ -36,14 +36,14 @@ export default function AddressInput({
     <Form.Item
       key={'address' + idx}
       label={t('address')}
-      name={`address[${item.locale}]`}
+      name={`address[${item?.locale}]`}
       rules={[
         {
-          required: item.locale === defaultLang,
+          required: item?.locale === defaultLang,
           message: t('required'),
         },
       ]}
-      hidden={item.locale !== defaultLang}
+      hidden={item?.locale !== defaultLang}
     >
       <input className='address-input' ref={ref} placeholder={''} />
     </Form.Item>

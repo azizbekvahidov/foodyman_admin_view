@@ -46,7 +46,7 @@ const OrderCard = ({
     {
       title: 'Amount',
       icon: <DollarOutlined />,
-      data: numberToPrice(item.total_price, item.currency?.symbol),
+      data: numberToPrice(item?.total_price, item.currency?.symbol),
     },
     {
       title: 'Payment type',
@@ -110,9 +110,9 @@ const OrderCard = ({
     <Card actions={actions} className='order-card'>
       <Skeleton loading={loading} avatar active>
         <Meta
-          avatar={<Avatar src={item.shop?.logo_img} />}
+          avatar={<Avatar src={item?.shop?.logo_img} />}
           description={`#${item.id}`}
-          title={item.shop?.translation?.title}
+          title={item?.shop?.translation?.title}
         />
         <List
           itemLayout='horizontal'
@@ -120,8 +120,8 @@ const OrderCard = ({
           renderItem={(item, key) => (
             <List.Item key={key}>
               <Space>
-                {item.icon}
-                {`${item.title}:  ${item.data}`}
+                {item?.icon}
+                {`${item?.title}:  ${item?.data}`}
               </Space>
             </List.Item>
           )}

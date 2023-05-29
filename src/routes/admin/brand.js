@@ -7,10 +7,6 @@ const BrandRoutes = [
     component: lazy(() => import('views/brands')),
   },
   {
-    path: 'catalog/brands/const',
-    component: lazy(() => import('views/brands/brand-import')),
-  },
-  {
     path: 'brand/add',
     component: lazy(() => import('views/brands/brands-add')),
   },
@@ -21,6 +17,10 @@ const BrandRoutes = [
   {
     path: 'brand-clone/:id',
     component: lazy(() => import('views/brands/brands-clone')),
+  },
+  {
+    path: 'catalog/brands/import',
+    component: lazy(() => import('views/brands/brand-import')),
   },
 ];
 

@@ -57,7 +57,8 @@ const ReportStock = () => {
         );
       },
       is_show: true,
-      sorter: (a, b) => a?.translation?.title.localeCompare(b?.translation?.title)
+      sorter: (a, b) =>
+        a?.translation?.title.localeCompare(b?.translation?.title),
     },
     {
       title: 'Bar code',
@@ -81,9 +82,15 @@ const ReportStock = () => {
       dataIndex: 'quantity',
       render: (_, data) => data?.stocks_sum_quantity,
       is_show: true,
-      sorter: (a, b) => a?.stocks_sum_quantity - b?.stocks_sum_quantity
+      sorter: (a, b) => a?.stocks_sum_quantity - b?.stocks_sum_quantity,
     },
   ]);
+
+  const params = {
+    page: activeMenu.page,
+    perPage: activeMenu.perPage,
+    status,
+  };
 
   const fetchProduct = (page, perPage) => {
     dispatch(
@@ -95,12 +102,12 @@ const ReportStock = () => {
   };
 
   useDidUpdate(() => {
-    fetchProduct();
+    fetchProduct(params);
   }, [status]);
 
   useEffect(() => {
     if (activeMenu.refetch) {
-      fetchProduct();
+      fetchProduct(params);
       dispatch(disableRefetch(activeMenu));
     }
   }, [activeMenu.refetch]);
@@ -131,7 +138,7 @@ const ReportStock = () => {
   };
 
   const handleSelector = (e) => setStatus(e);
- 
+
   return (
     <>
       <Row gutter={24}>

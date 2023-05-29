@@ -1,18 +1,27 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Col, Form, InputNumber, Row, Space } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AsyncSelect } from '../../components/async-select';
 import productService from '../../services/product';
+import { InfiniteSelect } from 'components/infinite-select';
 
 const ReceptStocks = ({ next, prev }) => {
   const { t } = useTranslation();
   const form = Form.useFormInstance();
   const stocks = Form.useWatch('stocks', form);
   const shop = Form.useWatch('shop_id', form);
-  function fetchProductsStock() {
-    return productService.getStock({shop_id: shop.value}).then((res) =>
-      res.data
+  const [links, setLinks] = useState(null);
+
+  function fetchProductsStock({ search, page }) {
+    const params = {
+      search: search?.length === 0 ? undefined : search,
+      shop_id: shop.value,
+      page: page,
+      status: 'published',
+    };
+    return productService.getStock(params).then((res) => {
+      setLinks(res.links);
+      return res.data
         .filter(
           (stock) =>
             !stocks.map((item) => item?.stock_id?.value).includes(stock.id)
@@ -23,9 +32,10 @@ const ReceptStocks = ({ next, prev }) => {
             ' ' +
             stock.extras.map((ext) => ext.value).join(', '),
           value: stock.id,
-        }))
-    );
+        }));
+    });
   }
+
   return (
     <>
       <Row gutter={12}>
@@ -50,9 +60,10 @@ const ReceptStocks = ({ next, prev }) => {
                           },
                         ]}
                       >
-                        <AsyncSelect
+                        <InfiniteSelect
                           fetchOptions={fetchProductsStock}
                           debounceTimeout={200}
+                          hasMore={links?.next}
                         />
                       </Form.Item>
                     </Col>

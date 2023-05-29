@@ -187,6 +187,7 @@ const UserDetail = () => {
       perPage: 10,
     };
     dispatch(fetchUserOrders(params));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useDidUpdate(() => {
@@ -213,6 +214,7 @@ const UserDetail = () => {
           <Button
             type='primary'
             disabled={
+              /*eslint eqeqeq: "off"*/
               (isDemo && data?.id == demoDeliveryman) ||
               (isDemo && data?.id == demoModerator) ||
               (isDemo && data?.id == demoMeneger) ||

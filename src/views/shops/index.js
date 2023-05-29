@@ -43,6 +43,13 @@ const Shops = () => {
   const [role, setRole] = useState('all');
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
   const immutable = activeMenu.data?.role || role;
+  const { setIsModalVisible } = useContext(Context);
+  const [id, setId] = useState(null);
+  const [loadingBtn, setLoadingBtn] = useState(false);
+  const { shops, meta, loading, params } = useSelector(
+    (state) => state.shop,
+    shallowEqual
+  );
 
   const goToEdit = (row) => {
     dispatch(
@@ -225,13 +232,6 @@ const Shops = () => {
       },
     },
   ]);
-  const { setIsModalVisible } = useContext(Context);
-  const [id, setId] = useState(null);
-  const [loadingBtn, setLoadingBtn] = useState(false);
-  const { shops, meta, loading, params } = useSelector(
-    (state) => state.shop,
-    shallowEqual
-  );
 
   const data = activeMenu?.data;
   const paramsData = {

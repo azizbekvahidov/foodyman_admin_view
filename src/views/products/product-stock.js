@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, InputNumber, Row, Select, Space } from 'antd';
+import { Button, Card, Col, Form, InputNumber, Row, Select, Space } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import extraService from '../../services/extra';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
@@ -125,7 +125,7 @@ const ProductStock = ({ prev, next }) => {
   }, []);
 
   return (
-    <>
+    <Card>
       {loading ? (
         <Loading />
       ) : (
@@ -262,7 +262,7 @@ const ProductStock = ({ prev, next }) => {
           </Space>
         </Form>
       )}
-    </>
+    </Card>
   );
 };
 

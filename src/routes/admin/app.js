@@ -1,7 +1,5 @@
 // ** React Imports
 import { lazy } from 'react';
-import { Navigate } from 'react-router-dom';
-const NotFound = lazy(() => import('../../views/not-found'));
 
 const AppRoutes = [
   {
@@ -9,16 +7,16 @@ const AppRoutes = [
     component: lazy(() => import('views/dashboard')),
   },
   {
-    path: '/',
-    component: <Navigate to='dashboard' />,
-  },
-  {
-    path: '*',
-    component: <NotFound />,
-  },
-  {
     path: 'payouts',
     component: lazy(() => import('views/admin-payouts')),
+  },
+  {
+    path: 'catalog/menu/categories',
+    component: lazy(() => import('views/menu-categories')),
+  },
+  {
+    path: 'settings/bookingUpload',
+    component: lazy(() => import('views/booking-file-upload')),
   },
   {
     path: 'pos-system',

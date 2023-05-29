@@ -3,8 +3,8 @@ import { lazy } from 'react';
 
 const SellerFoodRoutes = [
   {
-    path: 'seller/product',
-    component: lazy(() => import('views/seller-views/product')),
+    path: 'seller/products',
+    component: lazy(() => import('views/seller-views/products/products')),
   },
   {
     path: 'seller/product/add',
@@ -19,7 +19,7 @@ const SellerFoodRoutes = [
     component: lazy(() => import('views/seller-views/products/product-clone')),
   },
   {
-    path: 'seller/catalog/product/const',
+    path: 'seller/product/import',
     component: lazy(() => import('views/seller-views/products/product-import')),
   },
 ];

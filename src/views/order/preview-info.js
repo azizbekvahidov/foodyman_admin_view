@@ -44,6 +44,8 @@ const PreviewInfo = ({ orderId, handleClose }) => {
     );
   }
 
+  console.log('data?.total_price', data?.total_price);
+  console.log('data?.total_discount', data?.total_discount);
   return (
     <Modal
       visible={!!orderId}
@@ -211,7 +213,23 @@ const PreviewInfo = ({ orderId, handleClose }) => {
                   </div>
                   <h2 className='font-weight-semibold mt-3'>
                     <span className='mr-1'>{t('grand.total')}: </span>
-                    {numberToPrice(data?.total_price, data?.currency?.symbol)}
+                    <div className={data?.total_discount ? 'strike' : ''}>
+                      {numberToPrice(
+                        data?.total_discount,
+                        data?.currency?.symbol
+                      )}
+                    </div>
+
+                    {data?.total_discount ? (
+                      <div className='ml-2 font-weight-bold'>
+                        {numberToPrice(
+                          data?.total_price,
+                          data?.currency?.symbol
+                        )}
+                      </div>
+                    ) : (
+                      ''
+                    )}
                   </h2>
                 </div>
               </div>

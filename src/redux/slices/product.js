@@ -11,6 +11,7 @@ const initialState = {
     page: 1,
     perPage: 10,
   },
+  links: null,
   meta: {},
 };
 
@@ -63,6 +64,7 @@ const productSlice = createSlice({
           : 'no name',
       }));
       state.meta = payload.meta;
+      state.links = payload.links;
       state.params.page = payload.meta.current_page;
       state.params.perPage = payload.meta.per_page;
       state.error = '';
@@ -95,6 +97,7 @@ const productSlice = createSlice({
         unit: item?.unit,
       }));
       state.meta = payload.meta;
+      state.links = payload.links;
       state.params.page = payload.meta.current_page;
       state.params.perPage = payload.meta.per_page;
       state.error = '';
@@ -124,6 +127,7 @@ const productSlice = createSlice({
           : 'no name',
       }));
       state.meta = payload.meta;
+      state.links = payload.links;
       state.params.page = payload.meta.current_page;
       state.params.perPage = payload.meta.per_page;
       state.error = '';

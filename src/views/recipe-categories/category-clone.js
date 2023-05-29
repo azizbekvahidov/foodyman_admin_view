@@ -11,7 +11,7 @@ import {
   Switch,
 } from 'antd';
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LanguageList from '../../components/language-list';
 import TextArea from 'antd/es/input/TextArea';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -128,7 +128,7 @@ const RecipeCategoryClone = () => {
   }, [activeMenu.refetch]);
 
   return (
-    <Card title={t('clone.category')} extra={<LanguageList />}>
+    <Card title={t('recipe.category.clone')} extra={<LanguageList />}>
       {!loading ? (
         <Form
           name='basic'

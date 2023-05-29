@@ -19,7 +19,7 @@ const FoodRoutes = [
     component: lazy(() => import('views/products/product-clone')),
   },
   {
-    path: 'catalog/product/const',
+    path: 'catalog/product/import',
     component: lazy(() => import('views/products/product-import')),
   },
 ];

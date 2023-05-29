@@ -38,7 +38,6 @@ import orderService from '../../services/order';
 import { Context } from '../../context/context';
 import CustomModal from '../../components/modal';
 import moment from 'moment';
-import ResultModal from '../../components/result-modal';
 import shopService from '../../services/restaurant';
 import Incorporate from './dnd/Incorporate';
 import { batch } from 'react-redux';
@@ -63,7 +62,6 @@ export default function OrderBoard() {
   const [dowloadModal, setDowloadModal] = useState(null);
   const [downloading, setDownLoading] = useState(false);
   const [orderDeliveryDetails, setOrderDeliveryDetails] = useState(null);
-  const [restore, setRestore] = useState(null);
   const [tabType, setTabType] = useState(null);
 
   const goToEdit = (row) => {
@@ -89,17 +87,42 @@ export default function OrderBoard() {
     navigate(`/order/details/${row.id}`);
   };
 
+  const goToOrderCreate = () => {
+    dispatch(clearOrder());
+    dispatch(
+      setMenu({
+        id: 'pos.system_01',
+        url: 'pos-system',
+        name: 'pos.system',
+      })
+    );
+    navigate('/pos-system');
+  };
+
   const { setIsModalVisible } = useContext(Context);
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
   const [id, setId] = useState(null);
   const [text, setText] = useState(null);
   const [loadingBtn, setLoadingBtn] = useState(false);
-  const [dateRange, setDateRange] = useState(
-    moment().subtract(1, 'months'),
-    moment()
-  );
-  const { layout } = useSelector((state) => state.orders, shallowEqual);
+  const [dateRange, setDateRange] = useState(null);
   const data = activeMenu?.data;
+
+  const paramsData = {
+    search: data?.search ? data.search : undefined,
+    perPage: data?.perPage || 5,
+    page: data?.page || 1,
+    user_id: data?.user_id,
+    status: data?.role !== 'deleted_at' && data?.role,
+    shop_id:
+      activeMenu.data?.shop_id !== null ? activeMenu.data?.shop_id : null,
+    delivery_type: type !== 'scheduled' ? type : undefined,
+    delivery_date_from:
+      type === 'scheduled'
+        ? moment().add(1, 'day').format('YYYY-MM-DD')
+        : undefined,
+    date_from: dateRange?.[0]?.format('YYYY-MM-DD') || undefined,
+    date_to: dateRange?.[1]?.format('YYYY-MM-DD') || undefined,
+  };
 
   const orderDelete = () => {
     setLoadingBtn(true);
@@ -122,55 +145,9 @@ export default function OrderBoard() {
       .finally(() => setLoadingBtn(false));
   };
 
-  const orderDropAll = () => {
-    setLoadingBtn(true);
-    orderService
-      .dropAll()
-      .then(() => {
-        toast.success(t('successfully.deleted'));
-        dispatch(fetchOrders());
-        setRestore(null);
-      })
-      .finally(() => setLoadingBtn(false));
-  };
-
-  const orderRestoreAll = () => {
-    setLoadingBtn(true);
-    orderService
-      .restoreAll()
-      .then(() => {
-        toast.success(t('successfully.restored'));
-        dispatch(fetchOrders());
-        setRestore(null);
-      })
-      .finally(() => setLoadingBtn(false));
-  };
-
   useDidUpdate(() => {
-    const paramsData = {
-      search: data?.search,
-      sort: data?.sort,
-      column: data?.column,
-      perPage: data?.perPage,
-      page: data?.page,
-      user_id: data?.user_id,
-      status: data?.role !== 'deleted_at' && data?.role,
-      deleted_at: data?.role === 'deleted_at' ? 'deleted_at' : undefined,
-      shop_id:
-        activeMenu.data?.shop_id !== null ? activeMenu.data?.shop_id : null,
-      delivery_type: type !== 'scheduled' ? type : undefined,
-      delivery_date_from:
-        type === 'scheduled'
-          ? moment().add(1, 'day').format('YYYY-MM-DD')
-          : undefined,
-      date_from: dateRange[0]?.format('YYYY-MM-DD') || null,
-      date_to: dateRange[1]?.format('YYYY-MM-DD') || null,
-    };
-    if (layout === 'table' && data) {
-      dispatch(fetchOrders(paramsData));
-    } else if (data) {
-      dispatch(handleSearch(paramsData));
-    }
+    dispatch(handleSearch(paramsData));
+    fetchOrderAllItem();
   }, [data, dateRange, type]);
 
   const excelExport = () => {
@@ -206,18 +183,6 @@ export default function OrderBoard() {
     });
   }
 
-  const goToOrderCreate = () => {
-    dispatch(clearOrder());
-    dispatch(
-      setMenu({
-        id: 'pos.system_01',
-        url: 'pos-system',
-        name: 'pos.system',
-      })
-    );
-    navigate('/pos-system');
-  };
-
   const handleCloseModal = () => {
     setOrderDetails(null);
     setOrderDeliveryDetails(null);
@@ -243,8 +208,16 @@ export default function OrderBoard() {
         type === 'scheduled'
           ? moment().add(1, 'day').format('YYYY-MM-DD')
           : undefined,
+
+      search: data?.search ? data.search : undefined,
+      user_id: data?.user_id,
+      status: params?.status,
+      shop_id:
+        activeMenu.data?.shop_id !== null ? activeMenu.data?.shop_id : null,
+      date_from: dateRange?.[0]?.format('YYYY-MM-DD') || undefined,
+      date_to: dateRange?.[1]?.format('YYYY-MM-DD') || undefined,
     };
-    switch (params.status) {
+    switch (params?.status) {
       case 'new':
         dispatch(fetchNewOrders(paramsWithType));
         break;
@@ -292,20 +265,10 @@ export default function OrderBoard() {
 
   useEffect(() => {
     if (activeMenu?.refetch) {
-      const params = {
-        page: data?.page,
-        perPage: 10,
-        sort: data?.sort,
-        column: data?.column,
-        delivery_type: type !== 'scheduled' ? type : undefined,
-        delivery_date_from:
-          type === 'scheduled'
-            ? moment().add(1, 'day').format('YYYY-MM-DD')
-            : undefined,
-      };
-      dispatch(fetchOrders(params));
+      dispatch(fetchOrders(paramsData));
       dispatch(disableRefetch(activeMenu));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu?.refetch]);
 
   return (
@@ -347,20 +310,15 @@ export default function OrderBoard() {
             value={data?.user_id}
           />
           <RangePicker
-            value={dateRange}
+            defaultValue={dateRange}
             onChange={(values) => {
-              handleFilter((prev) => ({
-                ...prev,
-                ...{
-                  date_from: values?.[0]?.format('YYYY-MM-DD'),
-                  date_to: values?.[1]?.format('YYYY-MM-DD'),
-                },
-              }));
+              handleFilter(JSON.stringify(values), 'data_time');
               setDateRange(values);
             }}
             disabledDate={(current) => {
               return current && current > moment().endOf('day');
             }}
+            allowClear={true}
             style={{ width: '100%' }}
           />
           <Button
@@ -420,17 +378,6 @@ export default function OrderBoard() {
         loading={loadingBtn}
         setText={setId}
       />
-      {restore && (
-        <ResultModal
-          open={restore}
-          handleCancel={() => setRestore(null)}
-          click={restore.restore ? orderRestoreAll : orderDropAll}
-          text={restore.restore ? t('restore.modal.text') : t('read.carefully')}
-          subTitle={restore.restore ? '' : t('confirm.deletion')}
-          loading={loadingBtn}
-          setText={setId}
-        />
-      )}
     </>
   );
 }

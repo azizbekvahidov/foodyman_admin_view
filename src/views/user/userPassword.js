@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import userService from '../../services/user';
 import { useTranslation } from 'react-i18next';
-import useDemo from '../../helpers/useDemo';
 
 export default function UserPassword() {
   const { t } = useTranslation();
@@ -12,7 +11,6 @@ export default function UserPassword() {
   const [error, setError] = useState(null);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const { uuid } = useParams();
-  const { isDemo, demoSellerUuid } = useDemo();
 
   const onFinish = (values) => {
     setLoadingBtn(true);
@@ -83,12 +81,7 @@ export default function UserPassword() {
           </Col>
 
           <Col span={24}>
-            <Button
-              type='primary'
-              htmlType='submit'
-              loading={loadingBtn}
-              disabled={isDemo && demoSellerUuid === uuid}
-            >
+            <Button type='primary' htmlType='submit' loading={loadingBtn}>
               {t('save')}
             </Button>
           </Col>

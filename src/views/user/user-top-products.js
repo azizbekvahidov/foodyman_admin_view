@@ -39,6 +39,7 @@ const UserTopProducts = ({ id }) => {
 
   useEffect(() => {
     fetchTopProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -60,15 +61,15 @@ const UserTopProducts = ({ id }) => {
               <Space>
                 <Image
                   width={100}
-                  src={stock.countable.img}
+                  src={stock?.countable?.img}
                   placeholder
                   style={{ borderRadius: 4 }}
                 />
                 <div
-                  onClick={() => goToProduct(stock.countable)}
+                  onClick={() => goToProduct(stock?.countable)}
                   className='text-hover'
                 >
-                  {stock.countable.translation.title}
+                  {stock?.countable?.translation?.title}
                 </div>
               </Space>
             ),
@@ -82,7 +83,7 @@ const UserTopProducts = ({ id }) => {
             title: t('total.price'),
             dataIndex: 'total_price',
             key: 'total_price',
-            render: (price) => numberToPrice(price, defaultCurrency.symbol),
+            render: (price) => numberToPrice(price, defaultCurrency?.symbol),
           },
           {
             title: t('status'),
@@ -90,15 +91,15 @@ const UserTopProducts = ({ id }) => {
             key: 'status',
             render: (_, row) => (
               <Tag>
-                {row.stock.countable.active ? t('active') : t('inactive')}
+                {row.stock?.countable?.active ? t('active') : t('inactive')}
               </Tag>
             ),
           },
         ]}
         onChange={(pagination) =>
           fetchTopProducts({
-            page: pagination.current,
-            perPage: pagination.pageSize,
+            page: pagination?.current,
+            perPage: pagination?.pageSize,
           })
         }
       />

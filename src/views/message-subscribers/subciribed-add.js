@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import {
-  Button,
-  Card,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Row,
-} from 'antd';
+import { Button, Card, Col, DatePicker, Form, Input, Row, Select } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { removeFromMenu, setMenuData } from '../../redux/slices/menu';
 import { useTranslation } from 'react-i18next';
@@ -18,8 +10,13 @@ import moment from 'moment';
 import messageSubscriberService from '../../services/messageSubscriber';
 import { fetchMessageSubscriber } from '../../redux/slices/messegeSubscriber';
 import emailService from '../../services/emailSettings';
-import subscriberService from '../../services/subscriber';
 import { DebounceSelect } from '../../components/search';
+
+const options = [
+  { title: 'order', value: 'order' },
+  { title: 'subscribe', value: 'subscribe' },
+  { title: 'verify', value: 'verify' },
+];
 
 const MessageSubciribedAdd = () => {
   const { t } = useTranslation();
@@ -28,10 +25,12 @@ const MessageSubciribedAdd = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loadingBtn, setLoadingBtn] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [userList, setUserList] = useState([]);
   const { defaultLang, languages } = useSelector(
     (state) => state.formLang,
+    shallowEqual
+  );
+  const { subscribers } = useSelector(
+    (state) => state.messageSubscriber,
     shallowEqual
   );
 
@@ -71,32 +70,6 @@ const MessageSubciribedAdd = () => {
       .finally(() => setLoadingBtn(false));
   };
 
-  const fetchUserList = () => {
-    setLoading(true);
-    subscriberService
-      .getAll()
-      .then((response) => {
-        const data = response.data.map((data) => ({
-          label: data.user?.firstname + ' ' + data.user?.lastname,
-          value: data.user_id,
-        }));
-        setUserList(data);
-      })
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    fetchUserList();
-  }, []);
-
-  const clearSelected = () => {
-    form.setFieldsValue({ email: [] });
-  };
-
-  const allSelect = () => {
-    form.setFieldsValue({ email: userList.map((user) => user.value) });
-  };
-
   const getInitialValues = () => {
     const data = activeMenu.data;
     if (!data?.send_to) {
@@ -117,7 +90,6 @@ const MessageSubciribedAdd = () => {
         onFinish={onFinish}
         form={form}
         initialValues={{
-          type: 'order',
           ...activeMenu.data,
           ...getInitialValues(),
         }}
@@ -138,10 +110,10 @@ const MessageSubciribedAdd = () => {
               <Input />
             </Form.Item>
           </Col>
-          {/* <Col span={12}>
+          <Col span={12}>
             <Form.Item
-              label={t('emails')}
-              name='email'
+              label={t('type')}
+              name='type'
               rules={[
                 {
                   required: true,
@@ -150,31 +122,13 @@ const MessageSubciribedAdd = () => {
               ]}
             >
               <Select
-                className='w-100'
-                mode='multiple'
-                loading={loading}
-                dropdownRender={(menu) => (
-                  <>
-                    {menu}
-                    <Divider style={{ margin: '8px 0' }} />
-                    <Space style={{ padding: '0 8px 4px' }}>
-                      <Button type='button' onClick={allSelect}>
-                        Select all
-                      </Button>
-                      <Button type='button' onClick={clearSelected}>
-                        Clear Selected
-                      </Button>
-                    </Space>
-                  </>
+                options={options.filter(
+                  (i) => !subscribers.some((e) => e.type === i.value)
                 )}
-                options={userList.map((item) => ({
-                  label: item.label,
-                  value: item.value,
-                }))}
+                className='w-100'
               />
             </Form.Item>
-          </Col> */}
-
+          </Col>
           <Col span={12}>
             <Form.Item
               label={t('email.setting.id')}
@@ -210,15 +164,8 @@ const MessageSubciribedAdd = () => {
               <Input />
             </Form.Item>
           </Col>
-          {/* <Col span={12}>
-            <Form.Item name='has_date' valuePropName='checked'>
-              <Checkbox checked={hasDate} onChange={handleChange}>
-                {t('choose.discount.date')}
-              </Checkbox>
-            </Form.Item>
-          </Col> */}
 
-          <Col span={6}>
+          <Col span={12}>
             <Form.Item
               label={t('send.to')}
               name='send_to'

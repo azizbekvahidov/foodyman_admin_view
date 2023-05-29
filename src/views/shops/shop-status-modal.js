@@ -31,7 +31,7 @@ export default function ShopStatusModal({ data, handleCancel, paramsData }) {
   return (
     <Modal
       visible={!!data}
-      title={data.name}
+      title={t(data.name)}
       onCancel={handleCancel}
       footer={[
         <Button type='primary' onClick={() => form.submit()} loading={loading}>

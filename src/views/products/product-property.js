@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
+  Card,
   Col,
   Form,
   Input,
@@ -146,7 +147,7 @@ const ProductProperty = ({ next, prev }) => {
   }
 
   return (
-    <>
+    <Card>
       <Form layout='vertical' form={form} onFinish={onFinish}>
         <Row gutter={12} className='mb-3'>
           <Col span={8}>
@@ -213,7 +214,7 @@ const ProductProperty = ({ next, prev }) => {
           {t('next')}
         </Button>
       </Space>
-    </>
+    </Card>
   );
 };
 

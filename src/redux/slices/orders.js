@@ -206,16 +206,19 @@ const orderSlice = createSlice({
       state.orders = [];
       state.error = action.error.message;
     });
+
     //handleSearch
     builder.addCase(handleSearch.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(handleSearch.fulfilled, (state, action) => {
       const { payload } = action;
+
       const groupByStatus = payload.orders.reduce((group, order) => {
         const { status } = order;
         group[status] = group[status] ?? [];
         group[status].push(order);
+
         return group;
       }, {});
       state.loading = false;

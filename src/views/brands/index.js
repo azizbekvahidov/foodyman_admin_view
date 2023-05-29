@@ -308,7 +308,7 @@ const Brands = () => {
             <CgExport className='mr-2' />
             {t('export')}
           </Button>
-          {activeMenu.data?.role === 'published' ? (
+          {immutable === 'published' ? (
             <DeleteButton size='' onClick={() => setRestore({ delete: true })}>
               {t('delete.all')}
             </DeleteButton>

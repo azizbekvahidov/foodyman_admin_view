@@ -207,8 +207,6 @@ export default function OrderCart() {
       .finally(() => setLoadingCoupon(null));
   }
 
-  console.log(cartShops)
-
   const handleClick = () => {
     if (!currency) {
       toast.warning(t('please.select.currency'));

@@ -122,44 +122,31 @@ const SellerProductsClone = () => {
   };
 
   return (
-    <Card title={t('edit.food')} extra={<LanguageList />}>
-      <Steps current={current} onChange={onChange}>
-        {steps.map((item) => (
-          <Step title={t(item.title)} key={item.title} />
-        ))}
-      </Steps>
+    <>
+      <Card title={t('edit.food')} extra={<LanguageList />}>
+        <Steps current={current} onChange={onChange}>
+          {steps.map((item) => (
+            <Step title={t(item.title)} key={item.title} />
+          ))}
+        </Steps>
+      </Card>
       {!loading ? (
-        <div className='steps-content'>
+        <div className=''>
           {steps[current].content === 'First-content' && (
-            <ProductsIndex next={next} />
+            <ProductsIndex next={next} action_type={'edit'} />
           )}
 
-          <div
-            style={{
-              display:
-                steps[current].content === 'Second-content' ? 'block' : 'none',
-            }}
-          >
+          {steps[current].content === 'Second-content' && (
             <ProductExtras next={next} prev={prev} />
-          </div>
+          )}
 
-          <div
-            style={{
-              display:
-                steps[current].content === 'Third-content' ? 'block' : 'none',
-            }}
-          >
+          {steps[current].content === 'Third-content' && (
             <ProductStock next={next} prev={prev} />
-          </div>
+          )}
 
-          <div
-            style={{
-              display:
-                steps[current].content === 'Fourth-content' ? 'block' : 'none',
-            }}
-          >
+          {steps[current].content === 'Fourth-content' && (
             <ProductProperty next={next} prev={prev} />
-          </div>
+          )}
 
           {steps[current].content === 'Finish-content' && (
             <ProductFinish prev={prev} />
@@ -170,7 +157,7 @@ const SellerProductsClone = () => {
           <Spin size='large' className='py-5' />
         </div>
       )}
-    </Card>
+    </>
   );
 };
 export default SellerProductsClone;

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Modal } from 'antd';
+import { Button, Form, Input, Modal } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Map from '../../../components/map';
 import getDefaultLocation from '../../../helpers/getDefaultLocation';
-import { usePlacesWidget } from 'react-google-autocomplete';
-import { MAP_API_KEY } from '../../../configs/app-global';
 import { setCartData } from '../../../redux/slices/cart';
 import { getCartData } from '../../../redux/selectors/cartSelector';
 
@@ -19,22 +17,6 @@ export default function PosUserAddress({ uuid, handleCancel }) {
     (state) => state.globalSettings,
     shallowEqual
   );
-  const { google_map_key } = useSelector(
-    (state) => state.globalSettings.settings,
-    shallowEqual
-  );
-
-  const { ref } = usePlacesWidget({
-    apiKey: google_map_key || MAP_API_KEY,
-    onPlaceSelected: (place) => {
-      const location = {
-        lat: place?.geometry.location.lat(),
-        lng: place?.geometry.location.lng(),
-      };
-      setLocation(location);
-    },
-  });
-
   const [location, setLocation] = useState(
     data.address
       ? { lat: data.address.lat, lng: data.address.lng }
@@ -88,7 +70,7 @@ export default function PosUserAddress({ uuid, handleCancel }) {
           label={t('address')}
           rules={[{ required: true, message: t('required') }]}
         >
-          <input className='address-input' ref={ref} placeholder={''} />
+          <Input />
         </Form.Item>
         <Form.Item label={t('map')}>
           <Map

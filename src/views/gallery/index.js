@@ -7,15 +7,24 @@ import { useTranslation } from 'react-i18next';
 import Meta from 'antd/lib/card/Meta';
 
 const folder = [
-  'languages',
-  'categories',
-  'shops',
-  'brands',
-  'products',
-  'extras',
-  'users',
   'restaurant',
+  'shops',
   'deliveryman',
+  'restaurant',
+  'banners',
+  'brands',
+  'blogs',
+  'categories',
+  'coupons',
+  'discounts',
+  'extras',
+  'reviews',
+  'receipts',
+  'order_refunds',
+  'users',
+  'products',
+  'languages',
+  'referral',
   'shop-tags',
 ];
 

@@ -26,7 +26,7 @@ const AddonAdd = () => {
   };
 
   return (
-    <Card title={t('add.food')} extra={<LanguageList />}>
+    <Card title={t('addon.add')} extra={<LanguageList />}>
       <Steps current={current}>
         {steps.map((item) => (
           <Step title={t(item.title)} key={item.title} />

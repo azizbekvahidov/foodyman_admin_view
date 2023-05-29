@@ -38,7 +38,7 @@ const UserEdit = () => {
         const data = res.data;
         const payload = {
           ...data,
-          image: createImage(data.img),
+          image: data.img ? createImage(data.img) : [],
         };
         dispatch(setMenuData({ activeMenu, data: payload }));
         form.setFieldsValue({
@@ -50,7 +50,6 @@ const UserEdit = () => {
           gender: data.gender,
           password_confirmation: data.password_confirmation,
           password: data.password,
-          image: [createImage(data.img)],
           shop_id:
             data.invitations.length !== 0
               ? data.invitations.map((i) => ({
@@ -59,7 +58,7 @@ const UserEdit = () => {
                 }))
               : undefined,
         });
-        setImage([createImage(data.img)]);
+        setImage(data.img ? [createImage(data.img)] : []);
         setId(res.data?.delivery_man_setting?.id);
       })
       .finally(() => {
@@ -69,9 +68,8 @@ const UserEdit = () => {
   };
 
   useEffect(() => {
-    if (activeMenu?.refetch) {
-      showUserData(uuid);
-    }
+    if (activeMenu?.refetch) showUserData(uuid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu?.refetch]);
 
   const onChange = (key) => setTab(key);

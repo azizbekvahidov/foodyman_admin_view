@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Space } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import ShopAddData from './shop-add-data';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { replaceMenu, setMenuData } from '../../redux/slices/menu';
 import shopService from '../../services/shop';
 import { useTranslation } from 'react-i18next';
 import getDefaultLocation from '../../helpers/getDefaultLocation';
+import ShopFormData from 'components/forms/shop-form';
 
 const ShopMain = ({ next, action_type = '', user }) => {
   const { t } = useTranslation();
@@ -36,7 +36,6 @@ const ShopMain = ({ next, action_type = '', user }) => {
   const [backImage, setBackImage] = useState(
     activeMenu.data?.background_img ? [activeMenu.data?.background_img] : []
   );
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     return () => {
@@ -59,7 +58,7 @@ const ShopMain = ({ next, action_type = '', user }) => {
       delivery_time_to: values.delivery_time_to,
       delivery_time_from: values.delivery_time_from,
       categories: values.categories.map((e) => e.value),
-      tags: values.tags?.map((e) => e.value),
+      tags: values?.tags?.map((e) => e.value),
       user_id: values.user.value,
       open: undefined,
       'location[latitude]': location.lat,
@@ -90,7 +89,7 @@ const ShopMain = ({ next, action_type = '', user }) => {
         );
         navigate(`/shop/${data.uuid}?step=1`);
       })
-      .catch((err) => setError(err.response.data.params))
+      .catch((err) => console.error(err.response.data.params))
       .finally(() => setLoadingBtn(false));
   }
 
@@ -106,7 +105,7 @@ const ShopMain = ({ next, action_type = '', user }) => {
         );
         next();
       })
-      .catch((err) => setError(err.response.data.params))
+      .catch((err) => console.error(err.response.data.params))
       .finally(() => setLoadingBtn(false));
   }
 
@@ -123,16 +122,15 @@ const ShopMain = ({ next, action_type = '', user }) => {
           ...activeMenu.data,
         }}
       >
-        <ShopAddData
-          logoImage={logoImage}
-          setLogoImage={setLogoImage}
+        <ShopFormData
+          form={form}
+          user={user}
           backImage={backImage}
           setBackImage={setBackImage}
-          form={form}
+          logoImage={logoImage}
+          setLogoImage={setLogoImage}
           location={location}
           setLocation={setLocation}
-          error={error}
-          user={user}
         />
         <Space>
           <Button type='primary' htmlType='submit' loading={loadingBtn}>

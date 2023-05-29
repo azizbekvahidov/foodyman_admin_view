@@ -15,8 +15,8 @@ const SellerOrderRoutes = [
     component: lazy(() => import('views/seller-views/order/orders-board')),
   },
   {
-    path: 'seller/orders/generate-invoice/:id',
-    component: lazy(() => import('components/check')),
+    path: 'seller/generate-invoice/:id',
+    component: lazy(() => import('components/seller-check')),
   },
   {
     path: 'seller/orders-board/:type',

@@ -126,7 +126,6 @@ const RecipeCategoryClone = () => {
       .finally(() => setLoadingBtn(false));
   };
 
-
   useEffect(() => {
     if (activeMenu.refetch) {
       getCategory(uuid);
@@ -134,7 +133,7 @@ const RecipeCategoryClone = () => {
   }, [activeMenu.refetch]);
 
   return (
-    <Card title={t('clone.category')} extra={<LanguageList />}>
+    <Card title={t('recipe.category.clone')} extra={<LanguageList />}>
       {!loading ? (
         <Form
           name='basic'

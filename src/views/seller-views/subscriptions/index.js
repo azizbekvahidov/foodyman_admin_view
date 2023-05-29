@@ -69,7 +69,7 @@ export default function SellerSubscriptions() {
                     text={t('active')}
                     color='red'
                     className={
-                      myShop?.subscription.subscription.id === elm.id
+                      myShop?.subscription?.subscription?.id === elm.id
                         ? ''
                         : 'd-none'
                     }

@@ -17,6 +17,8 @@ export default function OrderStatusModal({
   const [loading, setLoading] = useState(false);
   const [statuses, setStatuses] = useState(status);
 
+  console.log('status', status);
+
   useEffect(() => {
     const statusIndex = status.findIndex((item) => item.name === data.status);
     let newStatuses = [
@@ -80,7 +82,7 @@ export default function OrderStatusModal({
               ]}
             >
               <Select>
-                {statuses.map((item) => (
+                {statuses?.map((item) => (
                   <Select.Option key={item?.name} value={item?.name}>
                     {t(item?.name)}
                   </Select.Option>

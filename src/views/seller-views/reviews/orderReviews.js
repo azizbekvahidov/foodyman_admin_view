@@ -27,37 +27,15 @@ export default function SellerOrderReviews() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const goToDetail = (row) => {
-    dispatch(
-      addMenu({
-        url: `/users/user/${row.uuid}`,
-        id: 'user_info',
-        name: t('user.info'),
-      })
-    );
-    navigate(`/users/user/${row.uuid}`, { state: { user_id: row.id } });
-  };
-
-  const goToShop = (row) => {
-    dispatch(
-      addMenu({
-        id: 'edit-shop',
-        url: `shop/${row.uuid}`,
-        name: t('edit.shop'),
-      })
-    );
-    navigate(`/shop/${row.uuid}`);
-  };
-
   const goToOrder = (id) => {
     dispatch(
       addMenu({
         id: 'order_details',
-        url: `order/details/${id}`,
+        url: `seller/order/details/${id}`,
         name: t('order.details'),
       })
     );
-    navigate(`/order/details/${id}`);
+    navigate(`/seller/order/details/${id}`);
   };
 
   const [columns, setColumns] = useState([
@@ -79,7 +57,7 @@ export default function SellerOrderReviews() {
       key: 'user',
       is_show: true,
       render: (user) => (
-        <div className='text-hover' onClick={() => goToDetail(user)}>
+        <div className='text-hover'>
           {user?.firstname} {user?.lastname || ''}
         </div>
       ),
@@ -90,9 +68,7 @@ export default function SellerOrderReviews() {
       key: 'shop',
       is_show: true,
       render: (order) => (
-        <div className='text-hover' onClick={() => goToShop(order?.shop)}>
-          {order.shop?.translation?.title}
-        </div>
+        <div className='text-hover'>{order.shop?.translation?.title}</div>
       ),
     },
     {

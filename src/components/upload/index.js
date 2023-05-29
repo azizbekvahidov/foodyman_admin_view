@@ -35,9 +35,9 @@ const MediaUpload = ({
   return (
     <>
       <div className='media-upload-wrapper'>
-        {imageList?.map((item) => (
+        {imageList?.map((item, idx) => (
           <div
-            key={item}
+            key={idx}
             className='image-wrapper'
             onClick={() => (disabled ? undefined : removeImg(item))}
           >

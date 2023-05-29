@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Descriptions, Row, Space, Spin } from 'antd';
+import { Button, Card, Col, Descriptions, Row, Space, Spin } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { removeFromMenu } from '../../../redux/slices/menu';
@@ -75,7 +75,7 @@ const ProductFinish = ({ prev }) => {
   }, []);
 
   return !loading ? (
-    <>
+    <Card>
       <Descriptions title={t('product.info')} bordered>
         <Descriptions.Item label={`${t('title')} (${defaultLang})`} span={3}>
           {data[`title[${defaultLang}]`]}
@@ -146,7 +146,7 @@ const ProductFinish = ({ prev }) => {
           </Button>
         </Space>
       </div>
-    </>
+    </Card>
   ) : (
     <div className='d-flex justify-content-center align-items-center'>
       <Spin size='large' className='py-5' />

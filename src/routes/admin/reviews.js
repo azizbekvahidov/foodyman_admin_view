@@ -8,7 +8,7 @@ const ReviewRoutes = [
   },
   {
     path: 'reviews/product',
-    component: lazy(() => import('views/reviews')),
+    component: lazy(() => import('views/reviews/productReviews')),
   },
   {
     path: 'reviews/order',

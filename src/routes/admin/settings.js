@@ -39,10 +39,6 @@ const SettingsRoutes = [
     component: lazy(() => import('views/payments')),
   },
   {
-    path: 'settings/sms-gateways',
-    component: lazy(() => import('views/sms-gateways')),
-  },
-  {
     path: 'settings/terms',
     component: lazy(() => import('views/privacy/terms')),
   },

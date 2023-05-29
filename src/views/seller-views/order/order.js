@@ -230,7 +230,12 @@ export default function SellerOrder() {
     perPage: data?.perPage,
     page: data?.page,
     user_id: data?.user_id,
-    status: immutable !== 'deleted_at' && immutable,
+    status:
+      immutable === 'deleted_at'
+        ? undefined
+        : immutable === 'all'
+        ? undefined
+        : immutable,
     deleted_at: immutable === 'deleted_at' ? 'deleted_at' : undefined,
     shop_id:
       activeMenu.data?.shop_id !== null ? activeMenu.data?.shop_id : null,

@@ -30,6 +30,7 @@ export default function RoleList() {
       dispatch(fetchRoles());
       dispatch(disableRefetch(activeMenu));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu?.refetch]);
 
   return (

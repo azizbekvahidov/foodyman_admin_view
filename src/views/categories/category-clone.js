@@ -11,7 +11,7 @@ import {
   Switch,
 } from 'antd';
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LanguageList from '../../components/language-list';
 import TextArea from 'antd/es/input/TextArea';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,6 @@ import {
   setMenuData,
 } from '../../redux/slices/menu';
 import categoryService from '../../services/category';
-import { IMG_URL } from '../../configs/app-global';
 import { fetchCategories } from '../../redux/slices/category';
 import { useTranslation } from 'react-i18next';
 import MediaUpload from '../../components/upload';
@@ -128,30 +127,8 @@ const ShopCategoryClone = () => {
     }
   }, [activeMenu.refetch]);
 
-  // async function fetchUserCategoryList() {
-  //   const params = { perPage: 100, type: 'main' };
-  //   return categoryService.getAll(params).then((res) =>
-  //     res.data.map((item) => ({
-  //       title: item.translation?.title,
-  //       value: item.id,
-  //       key: item.id,
-  //       // children: item.children?.map((el) => ({
-  //       //   title: el.translation?.title,
-  //       //   value: el.id,
-  //       //   key: el.id,
-  //       //   children: el.children?.map((three) => ({
-  //       //     title: three.translation?.title,
-  //       //     value: three.id,
-  //       //     key: three.id,
-  //       //     disabled: true,
-  //       //   })),
-  //       // })),
-  //     }))
-  //   );
-  // }
-
   return (
-    <Card title={t('clone.category')} extra={<LanguageList />}>
+    <Card title={t('category.clone')} extra={<LanguageList />}>
       {!loading ? (
         <Form
           name='basic'

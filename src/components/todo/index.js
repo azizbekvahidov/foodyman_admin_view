@@ -13,9 +13,7 @@ export const Todo = () => {
 
   const dispatch = useDispatch();
 
-  const handleFormSubmit = (todo) => {
-    dispatch(addTodo(todo));
-  };
+  const handleFormSubmit = (todo) => dispatch(addTodo(todo));
 
   const handleRemoveTodo = () => {
     dispatch(
@@ -23,21 +21,17 @@ export const Todo = () => {
     );
   };
 
-  const handleToggleTodoStatus = (id) => {
-    dispatch(changeStatus(id));
-  };
+  const handleToggleTodoStatus = (id) => dispatch(changeStatus(id));
 
   return (
     <Card
       title={t('todo.list')}
-      style={{height: 'calc(100% - 20px)'}}
+      style={{ height: 'calc(100% - 20px)' }}
       extra={
         <Button
           danger
-          type="primary"
-          disabled={
-            todos.filter((todo) => todo.isComplete).length === 0
-          }
+          type='primary'
+          disabled={todos.filter((todo) => todo.isComplete).length === 0}
           onClick={handleRemoveTodo}
         >
           {t('archive')}

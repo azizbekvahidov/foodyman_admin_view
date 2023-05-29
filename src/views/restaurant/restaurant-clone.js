@@ -50,10 +50,7 @@ const RestaurantClone = () => {
           ...getLanguageFields(res.data),
           logo_img: createImages(res.data.logo_img),
           background_img: createImages(res.data.background_img),
-          user: {
-            label: res.data.seller.firstname + ' ' + res.data.seller.lastname,
-            value: res.data.seller.id,
-          },
+          user: '',
           delivery_time_from: res.data?.delivery_time.from,
           delivery_time_to: res.data?.delivery_time.to,
           delivery_time_type: res.data?.delivery_time.type,

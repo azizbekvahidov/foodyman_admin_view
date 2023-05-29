@@ -12,13 +12,13 @@ import {
 } from 'antd';
 import { useTranslation } from 'react-i18next';
 import userService from '../services/user';
-import ImageUploadSingle from './image-upload-single';
 import Loading from './loading';
 import moment from 'moment';
 import createImage from '../helpers/createImage';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../redux/slices/auth';
 import useDemo from '../helpers/useDemo';
+import MediaUpload from './upload';
 
 export default function UserModal({ visible, handleCancel }) {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export default function UserModal({ visible, handleCancel }) {
   const [loading, setLoading] = useState(false);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [data, setData] = useState({});
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState([]);
   const [error, setError] = useState(null);
   const { isDemo, demoDeliveryman, demoSeller } = useDemo();
 
@@ -39,9 +39,8 @@ export default function UserModal({ visible, handleCancel }) {
         const obj = {
           ...res.data,
           birthday: moment(res.data.birthday),
-          image: createImage(res.data.img),
         };
-        setImage(obj.image);
+        setImage(res.data.img ? [createImage(res.data.img)] : []);
         setData(obj);
       })
       .finally(() => setLoading(false));
@@ -52,13 +51,19 @@ export default function UserModal({ visible, handleCancel }) {
   }, []);
 
   const onFinish = (values) => {
+    console.log('value: ', values);
     const payload = {
-      ...values,
+      images: image[0] ? [image[0]?.name] : undefined,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      phone: values.phone,
+      email: values.email,
       birthday: moment(values.birthday).format('YYYY-MM-DD'),
-      images: [image?.name],
-      phone: undefined,
-      email: undefined,
+      gender: values.gender,
+      password: values.password,
+      password_confirmation: values.password_confirmation,
     };
+    console.log('payload: ', payload);
     setLoadingBtn(true);
     userService
       .profileUpdate(payload)
@@ -70,6 +75,7 @@ export default function UserModal({ visible, handleCancel }) {
       .finally(() => setLoadingBtn(false));
   };
 
+  console.log('image', image);
   return (
     <Modal
       title={t('edit.profile')}
@@ -105,11 +111,12 @@ export default function UserModal({ visible, handleCancel }) {
           <Row gutter={12}>
             <Col span={24}>
               <Form.Item label={t('avatar')}>
-                <ImageUploadSingle
+                <MediaUpload
                   type='users'
-                  image={image}
-                  setImage={setImage}
+                  imageList={image}
+                  setImageList={setImage}
                   form={form}
+                  multiple={false}
                 />
               </Form.Item>
             </Col>

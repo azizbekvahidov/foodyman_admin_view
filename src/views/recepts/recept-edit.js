@@ -21,13 +21,23 @@ const RecieptEdit = () => {
   const { activeMenu } = useSelector((state) => state.menu, shallowEqual);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { defaultLang, languages } = useSelector(
-    (state) => state.formLang,
-    shallowEqual
-  );
+  const { defaultLang } = useSelector((state) => state.formLang, shallowEqual);
   const [current, setCurrent] = useState(activeMenu.data?.step || 0);
+  const createImage = (name) => {
+    return {
+      name,
+      url: IMG_URL + name,
+    };
+  };
   const [image, setImage] = useState(
-    activeMenu.data?.image ? [activeMenu.data?.image] : []
+    activeMenu.data?.galleries[0]
+      ? [createImage(activeMenu.data.galleries[0].path)]
+      : []
+  );
+  const [back, setBack] = useState(
+    activeMenu.data?.galleries[1]
+      ? [createImage(activeMenu.data.galleries[1].path)]
+      : []
   );
   const next = () => {
     const step = current + 1;
@@ -49,13 +59,6 @@ const RecieptEdit = () => {
       dispatch(setMenuData({ activeMenu, data }));
     };
   }, []);
-
-  const createImage = (name) => {
-    return {
-      name,
-      url: IMG_URL + name,
-    };
-  };
 
   const fetchBox = (id) => {
     setLoading(true);
@@ -99,7 +102,7 @@ const RecieptEdit = () => {
           },
           shop_id: {
             value: recept.shop.id,
-            label: recept.shop.translation?.title
+            label: recept.shop.translation?.title,
           },
           stocks: recept.stocks.map((item) => ({
             stock_id: {
@@ -109,7 +112,8 @@ const RecieptEdit = () => {
             ...item,
           })),
         });
-        setImage([createImage(recept.img)]);
+        setImage([createImage(recept.galleries[0].path)]);
+        setBack([createImage(recept.galleries[1].path)]);
       })
       .finally(() => {
         setLoading(false);
@@ -117,14 +121,21 @@ const RecieptEdit = () => {
       });
   };
 
+  const images = [...image, ...back];
+
   const onFinish = (values) => {
     form.validateFields();
     const body = {
       ...values,
       category_id: values.category_id.value,
-      images: image?.map((img) => img.name),
+      images: images.map((img) => img.name),
       shop_id: values.shop_id.value,
-      stocks: values.stocks.map((stock) => ({
+      nutrition: values.nutrition.map((item) => ({
+        ...item,
+        percentage: String(item.percentage),
+        weight: String(item.weight),
+      })),
+      stocks: values.stocks?.map((stock) => ({
         min_quantity: stock.min_quantity,
         stock_id: stock.stock_id.value,
       })),
@@ -177,6 +188,8 @@ const RecieptEdit = () => {
                   loading={loadingBtn}
                   image={image}
                   setImage={setImage}
+                  back={back}
+                  setBack={setBack}
                 />
               </div>
             );

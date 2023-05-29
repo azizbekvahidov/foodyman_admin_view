@@ -83,9 +83,8 @@ const DelivertSettingCreate = ({ id, data }) => {
   };
 
   useEffect(() => {
-    if (id) {
-      fetchDeliverySettings(id);
-    }
+    if (id) fetchDeliverySettings(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -29,7 +29,7 @@ export default function WalletHistory({ data }) {
       is_show: true,
       render: (author) => (
         <div>
-          {author?.firstname} {author?.lastname || ""}
+          {author?.firstname} {author?.lastname || ''}
         </div>
       ),
     },
@@ -77,6 +77,7 @@ export default function WalletHistory({ data }) {
 
   useEffect(() => {
     fetchWalletHistory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return (

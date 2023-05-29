@@ -74,7 +74,7 @@ export default function PaymentPayloads() {
   ]);
 
   const goToEdit = (row) => {
-    console.log(row)
+    console.log(row);
     dispatch(
       addMenu({
         url: `payment-payloads/edit/${row.payment_id}`,
@@ -159,8 +159,8 @@ export default function PaymentPayloads() {
           >
             {t('add.payment.payloads')}
           </Button>
-          <DeleteButton className='' type='danger' onClick={allDelete}>
-            {t('delete.all')}
+          <DeleteButton className='' onClick={allDelete}>
+            {t('delete.selected')}
           </DeleteButton>
           <FilterColumns columns={columns} setColumns={setColumns} />
         </Space>

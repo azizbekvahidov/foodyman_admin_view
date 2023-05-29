@@ -115,6 +115,8 @@
     rgba(129, 129, 129, 0.24) 37%,
     rgba(190, 190, 190, 0.2) 63%
   );
+  --chair_bg: #ffffff;
+  --text: #000000;
 }
 
 [data-theme='dark'] {
@@ -234,4 +236,6 @@
     #38455d 37%,
     var(--input-group-addon) 63%
   );
+  --chair_bg: #3b4962;
+  --text: #ffffff;
 }

@@ -158,6 +158,7 @@ export default function UserOrders({ data }) {
       perPage: 10,
     };
     dispatch(fetchUserOrders(params));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const rowSelection = {

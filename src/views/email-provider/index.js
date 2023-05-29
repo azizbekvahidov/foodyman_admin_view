@@ -147,7 +147,7 @@ export default function EmailProvider() {
       />
       <CustomModal
         click={setDefaultLang}
-        text={t('change.default.language')}
+        text={t('set.active.email.provider')}
         loading={loadingBtn}
       />
     </Card>

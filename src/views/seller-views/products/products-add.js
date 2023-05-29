@@ -26,13 +26,15 @@ const SellerProductAdd = () => {
   };
 
   return (
-    <Card title={t('add.food')} extra={<LanguageList />}>
-      <Steps current={current}>
-        {steps.map((item) => (
-          <Step title={t(item.title)} key={item.title} />
-        ))}
-      </Steps>
-      <div className='steps-content'>
+    <>
+      <Card title={t('add.food')} extra={<LanguageList />}>
+        <Steps current={current}>
+          {steps.map((item) => (
+            <Step title={t(item.title)} key={item.title} />
+          ))}
+        </Steps>
+      </Card>
+      <div className=''>
         {steps[current].content === 'First-content' && (
           <ProductsIndex next={next} />
         )}
@@ -53,7 +55,7 @@ const SellerProductAdd = () => {
           <ProductFinish prev={prev} />
         )}
       </div>
-    </Card>
+    </>
   );
 };
 export default SellerProductAdd;

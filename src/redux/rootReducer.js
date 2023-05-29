@@ -76,9 +76,28 @@ import paymentPayload from './slices/paymentPayload';
 import sms from './slices/sms-geteways';
 import box from './slices/box';
 import recipeCategory from './slices/recipe-category';
-import reciept from './slices/reciept'
+import reciept from './slices/reciept';
+import menuCategory from './slices/menuCategory';
+import careerCategory from './slices/career-category';
+import career from './slices/career';
+import pages from './slices/pages';
+import waiterOrder from './slices/waiterOrder';
+import bookingZone from './slices/booking-zone';
+import bookingTable from './slices/booking-tables';
+import bookingTime from './slices/booking-time';
+import booking from './slices/booking';
 
 const rootReducer = {
+  booking,
+  bookingTime,
+  bookingZone,
+  bookingTable,
+  waiterOrder,
+  pages,
+  career,
+  careerCategory,
+  menuCategory,
+
   sms,
   coupons,
   bonusList,
@@ -157,7 +176,7 @@ const rootReducer = {
   paymentPayload,
   box,
   recipeCategory,
-  reciept
+  reciept,
 };
 
 export default rootReducer;

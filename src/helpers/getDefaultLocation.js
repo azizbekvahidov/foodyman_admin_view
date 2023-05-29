@@ -1,3 +1,5 @@
+import { LAT, LNG } from 'configs/app-global';
+
 export default function getDefaultLocation(settings) {
   if (!settings?.location) {
     return {
@@ -7,7 +9,7 @@ export default function getDefaultLocation(settings) {
   }
   const location = settings.location.split(', ');
   return {
-    lat: Number(location[0]),
-    lng: Number(location[1]),
+    lat: Number(location?.[0]),
+    lng: Number(location?.[1]),
   };
 }

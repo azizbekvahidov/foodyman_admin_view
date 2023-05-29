@@ -157,8 +157,8 @@ export default function Notifications() {
 
   const { setIsModalVisible } = useContext(Context);
   const [id, setId] = useState(null);
-  const [isDelete, setIsDelete] = useState(false);
-  const [isPublish, setIsPublish] = useState(false);
+  const [isDelete, setIsDelete] = useState(null);
+  const [isPublish, setIsPublish] = useState(null);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [restore, setRestore] = useState(null);
 
