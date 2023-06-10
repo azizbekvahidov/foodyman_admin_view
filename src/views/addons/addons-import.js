@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { setMenuData } from '../../redux/slices/menu';
 import { fetchProducts } from '../../redux/slices/product';
 import { example } from '../../configs/app-global';
-import bannerService from '../../services/banner';
+import productService from 'services/product';
 
 export default function AddonsImport() {
   const { t } = useTranslation();
@@ -25,20 +25,10 @@ export default function AddonsImport() {
     };
   };
 
-  const beforeUpload = (file) => {
-    const isXls =
-      file.type ===
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    if (!isXls) {
-      toast.error(`${file.name} is not valid file`);
-      return false;
-    }
-  };
-
   const handleUpload = ({ file, onSuccess }) => {
     const formData = new FormData();
     formData.append('file', file);
-    bannerService.import(formData).then((data) => {
+    productService.import(formData).then((data) => {
       toast.success(t('successfully.import'));
       dispatch(setMenuData({ activeMenu, data: createFile(file) }));
       onSuccess('ok');
@@ -47,7 +37,7 @@ export default function AddonsImport() {
   };
 
   const downloadFile = () => {
-    const body = example + 'import-example/category_import.xls';
+    const body = example + 'import-example/addons.xls';
     window.location.href = body;
   };
 
@@ -74,7 +64,7 @@ export default function AddonsImport() {
         maxCount={1}
         customRequest={handleUpload}
         defaultFileList={activeMenu?.data ? [activeMenu?.data] : null}
-        beforeUpload={beforeUpload}
+        accept='.csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       >
         <p className='ant-upload-drag-icon'>
           <InboxOutlined />

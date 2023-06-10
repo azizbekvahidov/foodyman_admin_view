@@ -312,7 +312,7 @@ const AddonsCategories = () => {
       addon: 1,
     };
     productService
-      .export({ params })
+      .export(params)
       .then((res) => {
         const body = export_url + res.data.file_name;
         window.location.href = body;

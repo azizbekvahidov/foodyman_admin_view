@@ -82,67 +82,67 @@ const initialState = {
 };
 
 export const handleSearch = createAsyncThunk(
-  'order/handleSearch',
+  'order/waiter/handleSearch',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchOrders = createAsyncThunk(
-  'order/fetchOrders',
+  'order/waiter/fetchOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchNewOrders = createAsyncThunk(
-  'order/fetchNewOrders',
+  'order/waiter/fetchNewOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.new.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchAcceptedOrders = createAsyncThunk(
-  'order/fetchAcceptedOrders',
+  'order/waiter/fetchAcceptedOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.accepted.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchReadyOrders = createAsyncThunk(
-  'order/fetchReadyOrders',
+  'order/waiter/fetchReadyOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.ready.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchOnAWayOrders = createAsyncThunk(
-  'order/fetchOnAWayOrders',
+  'order/waiter/fetchOnAWayOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.on_a_way.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchDeliveredOrders = createAsyncThunk(
-  'order/fetchDeliveredOrders',
+  'order/waiter/fetchDeliveredOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.delivered.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 export const fetchCanceledOrders = createAsyncThunk(
-  'order/fetchCanceledOrders',
+  'order/waiter/fetchCanceledOrders',
   (params = {}) => {
     return orderService
       .getAll({ ...initialState.canceled.params, ...params })
-      .then((res) => res.data);
+      .then((res) => res);
   }
 );
 
@@ -156,7 +156,7 @@ const waiterOrderSlice = createSlice({
     });
     builder.addCase(handleSearch.fulfilled, (state, action) => {
       const { payload } = action;
-      const groupByStatus = payload.orders.reduce((group, order) => {
+      const groupByStatus = payload.data.reduce((group, order) => {
         const { status } = order;
         group[status] = group[status] ?? [];
         group[status].push(order);
@@ -197,8 +197,8 @@ const waiterOrderSlice = createSlice({
     builder.addCase(fetchOrders.fulfilled, (state, action) => {
       const { payload } = action;
       state.loading = false;
-      state.orders = payload.orders;
-      state.meta = { ...payload.meta, total: payload.statistic.orders_count };
+      state.orders = payload.data;
+      state.meta = { ...payload.meta, total: 10 };
       state.params.page = payload.meta.current_page;
       state.params.perPage = payload.meta.per_page;
       state.error = '';
@@ -218,7 +218,7 @@ const waiterOrderSlice = createSlice({
       state.new.loading = false;
       state.items = {
         ...state.items,
-        new: [...payload.orders, ...state.items.new],
+        new: [...payload.data, ...state.items.new],
       };
       state.new.meta = payload.meta;
       state.new.params.page = payload.meta.current_page;
@@ -240,7 +240,7 @@ const waiterOrderSlice = createSlice({
       state.accepted.loading = false;
       state.items = {
         ...state.items,
-        accepted: [...payload.orders, ...state.items.accepted],
+        accepted: [...payload.data, ...state.items.accepted],
       };
       state.accepted.meta = payload.meta;
       state.accepted.params.page = payload.meta.current_page;
@@ -262,7 +262,7 @@ const waiterOrderSlice = createSlice({
       state.ready.loading = false;
       state.items = {
         ...state.items,
-        ready: [...payload.orders, ...state.items.ready],
+        ready: [...payload.data, ...state.items.ready],
       };
       state.ready.meta = payload.meta;
       state.ready.params.page = payload.meta.current_page;
@@ -284,7 +284,7 @@ const waiterOrderSlice = createSlice({
       state.on_a_way.loading = false;
       state.items = {
         ...state.items,
-        on_a_way: [...payload.orders, ...state.items.on_a_way],
+        on_a_way: [...payload.data, ...state.items.on_a_way],
       };
       state.on_a_way.meta = payload.meta;
       state.on_a_way.params.page = payload.meta.current_page;
@@ -306,7 +306,7 @@ const waiterOrderSlice = createSlice({
       state.delivered.loading = false;
       state.items = {
         ...state.items,
-        delivered: [...payload.orders, ...state.items.delivered],
+        delivered: [...payload.data, ...state.items.delivered],
       };
       state.delivered.meta = payload.meta;
       state.delivered.params.page = payload.meta.current_page;
@@ -328,7 +328,7 @@ const waiterOrderSlice = createSlice({
       state.canceled.loading = false;
       state.items = {
         ...state.items,
-        canceled: [...payload.orders, ...state.items.canceled],
+        canceled: [...payload.data, ...state.items.canceled],
       };
       state.canceled.meta = payload.meta;
       state.canceled.params.page = payload.meta.current_page;

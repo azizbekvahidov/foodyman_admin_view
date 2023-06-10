@@ -45,8 +45,8 @@ const credentials = [
     password: 'delivery',
   },
   // {
-  //   login: 'waiter@githubit.com',
-  //   password: '123456',
+  //   login: 'temp@gmail.com',
+  //   password: '12345678',
   // },
 ];
 

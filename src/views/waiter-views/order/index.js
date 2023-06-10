@@ -6,7 +6,6 @@ import {
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
-  PlusCircleOutlined,
 } from '@ant-design/icons';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,7 +18,6 @@ import { batch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { clearOrder } from '../../../redux/slices/order';
-import { DebounceSelect } from '../../../components/search';
 import { useQueryParams } from '../../../helpers/useQueryParams';
 import { fetchRestOrderStatus } from '../../../redux/slices/orderStatus';
 import { clearItems, fetchOrders } from '../../../redux/slices/waiterOrder';
@@ -35,7 +33,6 @@ import CustomModal from '../../../components/modal';
 import orderService from '../../../services/waiter/order';
 import OrderDeliveryman from './orderDeliveryman';
 import OrderStatusModal from './orderStatusModal';
-import OrderTypeSwitcher from './order-type-switcher';
 import RiveResult from 'components/rive-result';
 
 const { TabPane } = Tabs;
@@ -124,34 +121,7 @@ export default function WaiterOrder() {
         </div>
       ),
     },
-    {
-      title: t('deliveryman'),
-      is_show: true,
-      dataIndex: 'deliveryman',
-      key: 'deliveryman',
-      render: (deliveryman, row) => (
-        <div>
-          {row.status === 'ready' && row.delivery_type !== 'pickup' ? (
-            <Button
-              disabled={row.deleted_at}
-              type='link'
-              onClick={() => setOrderDeliveryDetails(row)}
-            >
-              <Space>
-                {deliveryman
-                  ? `${deliveryman.firstname} ${deliveryman.lastname || ''}`
-                  : t('add.deliveryman')}
-                <EditOutlined />
-              </Space>
-            </Button>
-          ) : (
-            <div>
-              {deliveryman?.firstname} {deliveryman?.lastname || ''}
-            </div>
-          )}
-        </div>
-      ),
-    },
+
     {
       title: t('number.of.products'),
       dataIndex: 'order_details_count',
@@ -186,12 +156,6 @@ export default function WaiterOrder() {
       is_show: true,
       dataIndex: 'created_at',
       key: 'created_at',
-    },
-    {
-      title: t('delivery.date'),
-      is_show: true,
-      dataIndex: 'delivery_date',
-      key: 'delivery_date',
     },
     {
       title: t('options'),
@@ -239,6 +203,7 @@ export default function WaiterOrder() {
       activeMenu.data?.delivery_type !== null
         ? activeMenu.data?.delivery_type
         : null,
+    empty_waiter: 1
   };
 
   function onChangePagination(pagination, filters, sorter) {
@@ -363,17 +328,6 @@ export default function WaiterOrder() {
 
   return (
     <>
-      <Space className='justify-content-end w-100 mb-3'>
-        <OrderTypeSwitcher listType='waiter/orders' />
-        <Button
-          type='primary'
-          icon={<PlusCircleOutlined />}
-          onClick={goToAddOrder}
-          style={{ width: '100%' }}
-        >
-          {t('add.order')}
-        </Button>
-      </Space>
       <Card>
         <Space wrap className='p-0 mb-0'>
           <SearchInput
@@ -381,13 +335,7 @@ export default function WaiterOrder() {
             handleChange={(search) => handleFilter(search, 'search')}
             defaultValue={activeMenu.data?.search}
           />
-          <DebounceSelect
-            placeholder={t('select.client')}
-            fetchOptions={getUsers}
-            onSelect={(user) => handleFilter(user.value, 'search')}
-            onDeselect={() => handleFilter(null, 'search')}
-            style={{ minWidth: 200 }}
-          />
+
           <Select
             value={data?.delivery_type}
             placeholder={t('order.type')}
@@ -402,9 +350,6 @@ export default function WaiterOrder() {
           <Button icon={<ClearOutlined />} onClick={handleClear}>
             {t('clear')}
           </Button>
-          <DeleteButton size='' onClick={allDelete}>
-            {t('delete.selected')}
-          </DeleteButton>
           <FilterColumns columns={columns} setColumns={setColumns} />
         </Space>
       </Card>

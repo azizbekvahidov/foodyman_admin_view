@@ -13,7 +13,6 @@ import {
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Map from '../map';
-import AddressInput from '../address-input';
 import MediaUpload from '../upload';
 import { AppstoreOutlined } from '@ant-design/icons';
 import { RefetchSearch } from '../refetch-search';
@@ -22,7 +21,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import shopTagService from 'services/shopTag';
 import categoryService from 'services/category';
 import userService from 'services/user';
-import UserModal from 'components/user-modal';
+import UserModal from 'components/shop/user-modal';
 import CategoryModal from 'components/shop/category-modal';
 
 const ShopFormData = ({
@@ -45,7 +44,7 @@ const ShopFormData = ({
   );
 
   async function fetchUserList(search) {
-    const params = { search, roles: 'user', empty_shop: 1 };
+    const params = { search, roles: 'user', 'empty-shop': 1 };
     setUserRefetch(false);
     return userService.search(params).then((res) =>
       res.data.map((item) => ({
@@ -155,7 +154,7 @@ const ShopFormData = ({
                           required: item.locale === defaultLang,
                           message: t('required'),
                         },
-                        { min: 2, message: t('title.requared') },
+                        { min: 2, message: t('title.required') },
                       ]}
                       hidden={item.locale !== defaultLang}
                     >
@@ -186,7 +185,7 @@ const ShopFormData = ({
                       required: item.locale === defaultLang,
                       message: t('required'),
                     },
-                    { min: 3, message: t('requared') },
+                    { min: 3, message: t('required') },
                   ]}
                   hidden={item.locale !== defaultLang}
                 >

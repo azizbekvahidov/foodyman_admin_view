@@ -1,11 +1,12 @@
 import request from './request';
+import requestWithoutTimeout from './requestWithoutTimeout';
 
 const orderService = {
   getAll: (params) =>
     request.get('dashboard/admin/orders/paginate', { params }),
   getById: (id, params) =>
     request.get(`dashboard/admin/orders/${id}`, { params }),
-  export: () => request.get(`dashboard/admin/order/export`),
+  export: () => requestWithoutTimeout.get(`dashboard/admin/order/export`),
   create: (data) => request.post('dashboard/admin/orders', data, {}),
   update: (id, data) => request.put(`dashboard/admin/orders/${id}`, data),
   calculate: (params) =>
@@ -20,7 +21,8 @@ const orderService = {
   restoreAll: () => request.get(`dashboard/admin/orders/restore/all`),
   getAllUserOrder: (id, params) =>
     request.get(`dashboard/admin/user-orders/${id}/paginate`, { params }),
-  getUserTopProducts: (id, params) => request.get(`dashboard/admin/user-orders/${id}`, {params})
+  getUserTopProducts: (id, params) =>
+    request.get(`dashboard/admin/user-orders/${id}`, { params }),
 };
 
 export default orderService;

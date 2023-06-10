@@ -92,9 +92,11 @@ const UserEdit = () => {
               action_type={'edit'}
             />
           </TabPane>
-          <TabPane key='order' tab={t('orders')}>
-            <UserOrders data={activeMenu?.data} />
-          </TabPane>
+          {role === 'cook' && (
+            <TabPane key='order' tab={t('orders')}>
+              <UserOrders data={activeMenu?.data} />
+            </TabPane>
+          )}
           {role === 'deliveryman' && (
             <TabPane key='delivery' tab={t('deliveryman')}>
               <DelivertSettingCreate id={id} data={activeMenu.data} />

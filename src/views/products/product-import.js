@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { setMenuData } from '../../redux/slices/menu';
 import { fetchCategories } from '../../redux/slices/category';
 import { example } from '../../configs/app-global';
-import bannerService from '../../services/banner';
+import productService from 'services/product';
 
 export default function ProductImport() {
   const { t } = useTranslation();
@@ -25,20 +25,10 @@ export default function ProductImport() {
     };
   };
 
-  const beforeUpload = (file) => {
-    const isXls =
-      file.type ===
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    if (!isXls) {
-      toast.error(`${file.name} is not valid file`);
-      return false;
-    }
-  };
-
   const handleUpload = ({ file, onSuccess }) => {
     const formData = new FormData();
     formData.append('file', file);
-    bannerService.import(formData).then((data) => {
+    productService.import(formData).then((data) => {
       toast.success(t('successfully.import'));
       dispatch(setMenuData({ activeMenu, data: createFile(file) }));
       onSuccess('ok');
@@ -74,7 +64,7 @@ export default function ProductImport() {
         maxCount={1}
         customRequest={handleUpload}
         defaultFileList={activeMenu?.data ? [activeMenu?.data] : null}
-        beforeUpload={beforeUpload}
+        accept='.csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       >
         <p className='ant-upload-drag-icon'>
           <InboxOutlined />

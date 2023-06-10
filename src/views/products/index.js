@@ -334,7 +334,7 @@ const ProductCategories = () => {
   const excelExport = () => {
     setDownloading(true);
     const body = {
-      shop_id: activeMenu.data.shop.value,
+      shop_id: activeMenu.data?.shop?.value,
     };
     productService
       .export(body)

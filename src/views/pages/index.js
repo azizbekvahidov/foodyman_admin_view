@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, Image, Space, Table } from 'antd';
-import { IMG_URL } from '../../configs/app-global';
+import { IMG_URL } from 'configs/app-global';
 import { useNavigate } from 'react-router-dom';
 import {
   DeleteOutlined,
   EditOutlined,
   PlusCircleOutlined,
 } from '@ant-design/icons';
-import CustomModal from '../../components/modal';
-import { Context } from '../../context/context';
+import CustomModal from 'components/modal';
+import { Context } from 'context/context';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { addMenu, disableRefetch } from '../../redux/slices/menu';
-import pagesService from '../../services/pages';
-import { fetchPages } from '../../redux/slices/pages';
+import { addMenu, disableRefetch } from 'redux/slices/menu';
+import pagesService from 'services/pages';
+import { fetchPages } from 'redux/slices/pages';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import DeleteButton from '../../components/delete-button';
-import FilterColumns from '../../components/filter-column';
+import DeleteButton from 'components/delete-button';
+import FilterColumns from 'components/filter-column';
 import RiveResult from 'components/rive-result';
 
 const Page = () => {
@@ -168,6 +168,7 @@ const Page = () => {
         scroll={{ x: true }}
         columns={columns?.filter((item) => item.is_show)}
         dataSource={pages}
+        loading={loading}
         pagination={{
           pageSize: meta.per_page,
           page: meta.current_page,

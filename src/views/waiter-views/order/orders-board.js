@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Button, Space, Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { ClearOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { ClearOutlined } from '@ant-design/icons';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
   addMenu,
@@ -10,12 +10,8 @@ import {
 } from '../../../redux/slices/menu';
 import { useTranslation } from 'react-i18next';
 import useDidUpdate from '../../../helpers/useDidUpdate';
-import {
-  fetchOrders as fetchSellerOrders,
-  handleSearch,
-} from '../../../redux/slices/waiterOrder';
+import { fetchOrders, handleSearch } from '../../../redux/slices/waiterOrder';
 import SearchInput from '../../../components/search-input';
-import { DebounceSelect } from '../../../components/search';
 import userService from '../../../services/seller/user';
 import { fetchRestOrderStatus } from '../../../redux/slices/orderStatus';
 import DeleteButton from '../../../components/delete-button';
@@ -34,7 +30,6 @@ import {
 } from '../../../redux/slices/waiterOrder';
 import { batch } from 'react-redux';
 import OrderDeliveryman from './orderDeliveryman';
-import OrderTypeSwitcher from './order-type-switcher';
 import { clearOrder } from '../../../redux/slices/order';
 import ShowLocationsMap from './show-locations.map';
 import DownloadModal from './downloadModal';
@@ -108,7 +103,7 @@ export default function SellerOrdersBoard() {
         status: data?.status,
         perPage: 10,
       };
-      dispatch(fetchSellerOrders(params));
+      dispatch(fetchOrders(params));
       dispatch(fetchRestOrderStatus());
       dispatch(disableRefetch(activeMenu));
     }
@@ -212,30 +207,12 @@ export default function SellerOrdersBoard() {
 
   return (
     <>
-      <Space className='justify-content-end w-100 mb-3'>
-        <OrderTypeSwitcher listType='waiter/orders-board' />
-        <Button
-          type='primary'
-          icon={<PlusCircleOutlined />}
-          onClick={goToAddOrder}
-          style={{ width: '100%' }}
-        >
-          {t('add.order')}
-        </Button>
-      </Space>
       <Card>
         <Space wrap>
           <SearchInput
             placeholder={t('search')}
             handleChange={(search) => handleFilter(search, 'search')}
             defaultValue={activeMenu.data?.search}
-          />
-          <DebounceSelect
-            placeholder={t('select.client')}
-            fetchOptions={getUsers}
-            onSelect={(user) => handleFilter(user.value, 'search')}
-            onDeselect={() => handleFilter(null, 'search')}
-            style={{ minWidth: 200 }}
           />
           <Button icon={<ClearOutlined />} onClick={handleClear}>
             {t('clear')}

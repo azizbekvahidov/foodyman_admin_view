@@ -1,4 +1,5 @@
 import request from '../request';
+import requestWithoutTimeout from '../requestWithoutTimeout';
 
 const productService = {
   getAll: (params) =>
@@ -7,8 +8,8 @@ const productService = {
     request.get(`dashboard/seller/products/${uuid}`, { params }),
   create: (params) => request.post(`dashboard/seller/products`, {}, { params }),
   export: (params) =>
-    request.get(`dashboard/seller/products/export`, { params }),
-  import: (data) => request.post('dashboard/seller/products/import', data, {}),
+    requestWithoutTimeout.get(`dashboard/seller/products/export`, { params }),
+  import: (data) => request.post('dashboard/seller/products/import', data),
   update: (uuid, params) =>
     request.put(`dashboard/seller/products/${uuid}`, {}, { params }),
   delete: (params) =>

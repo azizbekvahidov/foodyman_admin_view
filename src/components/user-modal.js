@@ -75,7 +75,6 @@ export default function UserModal({ visible, handleCancel }) {
       .finally(() => setLoadingBtn(false));
   };
 
-  console.log('image', image);
   return (
     <Modal
       title={t('edit.profile')}

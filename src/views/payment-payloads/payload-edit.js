@@ -86,12 +86,17 @@ const PaymentPayloadEdit = () => {
 
   const onFinish = (values) => {
     delete values.payment_id;
+    if (activePayment?.label === 'flutterWave' && !image[0]) {
+      toast.error(t('choose.payload.image'));
+      return;
+    }
     setLoadingBtn(true);
     const body = {
       payment_id: activePayment.value,
       payload: {
         ...values,
         logo: image[0] ? image[0].name : undefined,
+        currency: values.currency?.label,
         paypal_validate_ssl: values?.paypal_validate_ssl
           ? Number(values.paypal_validate_ssl)
           : undefined,
@@ -546,7 +551,7 @@ const PaymentPayloadEdit = () => {
                       </Form.Item>
                     </Col>
                     <Col span={6}>
-                      <Form.Item label={t('logo')}>
+                      <Form.Item rules={[{ required: true }]} label={t('logo')}>
                         <MediaUpload
                           type='brands'
                           imageList={image}

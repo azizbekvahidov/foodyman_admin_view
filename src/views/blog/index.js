@@ -297,7 +297,7 @@ export default function Blogs() {
             icon={<PlusCircleOutlined />}
             onClick={goToAddBlog}
           >
-            {t('add.banner')}
+            {t('add.blog')}
           </Button>
 
           <DeleteButton size='' onClick={allDelete}>

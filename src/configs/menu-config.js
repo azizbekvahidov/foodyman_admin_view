@@ -569,6 +569,12 @@ const adminRoutes = [
             url: 'pages',
             id: 'pages',
           },
+          {
+            name: 'landing.page',
+            icon: 'FileTextOutlined',
+            url: 'settings/landing-page',
+            id: 'settings/landing-page',
+          },
         ],
       },
     ],
@@ -1219,41 +1225,48 @@ const sellerRoutes = [
     url: 'seller/pos-system',
     id: 'pos-system',
   },
-  // {
-  //   name: 'reservation',
-  //   id: 'order_management',
-  //   icon: 'BookOutlined',
-  //   submenu: [
-  //     {
-  //       name: 'reservation',
-  //       icon: 'BsCalendarCheck',
-  //       url: 'seller/booking',
-  //       id: 'seller/booking',
-  //       children: [],
-  //     },
-  //     {
-  //       name: 'reservation.zone',
-  //       icon: 'BiMapPin',
-  //       url: 'seller/booking/zone',
-  //       id: 'seller-reservation-zone',
-  //       children: [],
-  //     },
-  //     {
-  //       name: 'reservation.tables',
-  //       icon: 'MdOutlineTableBar',
-  //       url: 'seller/booking/tables',
-  //       id: 'reservation-tables',
-  //       children: [],
-  //     },
-  //     {
-  //       name: 'reservation.time',
-  //       icon: 'AiOutlineFieldTime',
-  //       url: 'seller/booking/time',
-  //       id: 'reservation-time',
-  //       children: [],
-  //     },
-  //   ],
-  // },
+  {
+    name: 'reservation',
+    id: 'order_management',
+    icon: 'BookOutlined',
+    submenu: [
+      {
+        name: 'reservation.list',
+        icon: 'BsCalendarCheck',
+        url: 'seller/bookingList',
+        id: 'seller/BookingList',
+        children: [],
+      },
+      {
+        name: 'reservation',
+        icon: 'BsCalendarCheck',
+        url: 'seller/booking',
+        id: 'seller/booking',
+        children: [],
+      },
+      {
+        name: 'reservation.zone',
+        icon: 'BiMapPin',
+        url: 'seller/booking/zone',
+        id: 'seller-reservation-zone',
+        children: [],
+      },
+      {
+        name: 'reservation.tables',
+        icon: 'MdOutlineTableBar',
+        url: 'seller/booking/tables',
+        id: 'reservation-tables',
+        children: [],
+      },
+      {
+        name: 'reservation.time',
+        icon: 'AiOutlineFieldTime',
+        url: 'seller/booking/time',
+        id: 'reservation-time',
+        children: [],
+      },
+    ],
+  },
   {
     name: 'order',
     id: 'order_management',
@@ -1557,24 +1570,16 @@ const deliverymanRoutes = [
 
 const waiterRoutes = [
   {
-    name: 'dashboard',
-    icon: 'dashboard',
-    url: 'dashboard',
-    id: 'dashboard_05',
+    name: 'my.orders',
+    id: 'orders-board',
+    icon: 'user',
+    url: 'waiter/order-board',
   },
   {
-    name: 'order',
-    id: 'order_management',
+    name: 'all.orders',
     icon: 'fiShoppingCart',
-    submenu: [
-      {
-        name: 'all.orders',
-        icon: 'fiShoppingCart',
-        url: 'waiter/orders-board',
-        id: 'orders-board',
-        children: [],
-      },
-    ],
+    id: 'order_management',
+    url: 'waiter/orders',
   },
   {
     name: 'logout',

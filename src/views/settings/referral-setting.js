@@ -179,7 +179,7 @@ const ReferalSetting = () => {
                     required: item.locale === defaultLang,
                     message: t('required'),
                   },
-                  { min: 2, message: t('title.requared') },
+                  { min: 2, message: t('title.required') },
                 ]}
                 hidden={item.locale !== defaultLang}
               >

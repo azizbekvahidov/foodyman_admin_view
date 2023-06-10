@@ -35,6 +35,7 @@ const roles = [
   'seller',
   'moderator',
   'manager',
+  'cook',
   'deliveryman',
   'deleted_at',
 ];

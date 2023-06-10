@@ -35,6 +35,7 @@ import SubscriptionsRoutes from './admin/subscriptions';
 import UnitRoutes from './admin/unit';
 import UsersRoutes from './admin/user';
 import ReportRoutes from './admin/report';
+import LandingPageRoutes from './admin/landing-page';
 
 // ** seller routes ** -----------
 import SellerAddonRoutes from './seller/addon';
@@ -59,6 +60,7 @@ import SellerReportRoutes from './seller/report';
 import SellerReviewRoutes from './seller/reviews';
 import SellerStoryRoutes from './seller/story';
 import SellerSubscriptionsRoutes from './seller/subscriptions';
+import sellerBookingRoutes from './seller/booking';
 
 // ** waiter routes ** ----------------
 import WaiterAppRoutes from './waiter/app';
@@ -102,6 +104,7 @@ const AllRoutes = [
   ...UnitRoutes,
   ...UsersRoutes,
   ...ReportRoutes,
+  ...LandingPageRoutes,
 
   // seller routes
   ...SellerAppRoutes,
@@ -126,6 +129,7 @@ const AllRoutes = [
   ...SellerReceptCategoryRoutes,
   ...SellerReceptRoutes,
   ...SellerStoryRoutes,
+  ...sellerBookingRoutes,
 
   // waiter routes
   ...WaiterAppRoutes,

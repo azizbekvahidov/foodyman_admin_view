@@ -104,7 +104,7 @@ const ShopAddData = ({
                           required: item.locale === defaultLang,
                           message: t('required'),
                         },
-                        { min: 2, message: t('title.requared') },
+                        { min: 2, message: t('title.required') },
                       ]}
                       hidden={item.locale !== defaultLang}
                     >
@@ -135,7 +135,7 @@ const ShopAddData = ({
                       required: item.locale === defaultLang,
                       message: t('required'),
                     },
-                    { min: 3, message: t('requared') },
+                    { min: 3, message: t('required') },
                   ]}
                   hidden={item.locale !== defaultLang}
                 >

@@ -1,4 +1,4 @@
-export const PROJECT_NAME = 'Foodyman marketplace';
+export const PROJECT_NAME = 'depo24 marketplace';
 export const BASE_URL =
   process.env.REACT_APP_BASE_URL || 'https://api.depo24.uz';
 export const WEBSITE_URL = 'https://depo24.uz';

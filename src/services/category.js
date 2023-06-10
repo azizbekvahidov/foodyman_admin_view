@@ -1,4 +1,5 @@
 import request from './request';
+import requestWithoutTimeout from './requestWithoutTimeout';
 
 const categoryService = {
   getAll: (params) =>
@@ -17,9 +18,8 @@ const categoryService = {
   dropAll: () => request.get(`dashboard/admin/categories/drop/all`),
   restoreAll: () => request.get(`dashboard/admin/categories/restore/all`),
   export: (params) =>
-    request.get('dashboard/admin/categories/export', { params }),
-  import: (params) =>
-    request.get('dashboard/admin/categories/import', { params }),
+    requestWithoutTimeout.get('dashboard/admin/categories/export', { params }),
+  import: (data) => request.post('dashboard/admin/categories/import', data),
 };
 
 export default categoryService;

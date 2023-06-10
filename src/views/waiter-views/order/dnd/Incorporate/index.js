@@ -43,7 +43,7 @@ const Incorporate = ({
   const [key, setKey] = useState('');
   const [current, setCurrent] = useState({});
   const [currentCId, setCurrentCId] = useState({});
-
+ 
   const removeFromList = (list, index) => {
     const result = Array.from(list);
     const [removed] = result.splice(index, 1);

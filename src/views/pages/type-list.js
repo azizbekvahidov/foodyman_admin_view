@@ -3,5 +3,5 @@ export const typeList = [
   { value: 'about', label: 'About' },
   { value: 'about_fourth', label: 'About fourth' },
   { value: 'about_second', label: 'About second' },
-  { value: 'about_third', label: 'About third' },
+  { value: 'about_three', label: 'About third' },
 ];

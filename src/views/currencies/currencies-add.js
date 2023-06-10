@@ -32,6 +32,7 @@ export default function CurrencyAdd() {
       symbol: values.symbol,
       rate: values.rate,
       active: Number(values.active),
+      position: values.position
     };
     const nextUrl = 'currencies';
     currencyService
@@ -78,7 +79,9 @@ export default function CurrencyAdd() {
               <Select
                 onChange={(e, i) => form.setFieldsValue({ symbol: i.symbol })}
                 filterOption={(input, option) =>
-                  (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                  (option?.label ?? '')
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
                 }
                 filterSort={(optionA, optionB) =>
                   (optionA?.label ?? '')
@@ -119,6 +122,28 @@ export default function CurrencyAdd() {
               ]}
             >
               <Input />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item
+              label={t('symbol_position')}
+              name='position'
+              rules={[
+                {
+                  required: true,
+                  message: t('required'),
+                },
+              ]}
+            >
+              <Select
+                onChange={value => form.setFieldsValue({position: value})}
+                options={[
+                  { label: t('after'), value: 'after' },
+                  { label: t('before'), value: 'before' },
+                ]}
+                defaultValue='before'
+              />
             </Form.Item>
           </Col>
 

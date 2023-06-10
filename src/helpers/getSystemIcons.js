@@ -54,6 +54,7 @@ import {
   ShoppingCartOutlined,
   CarOutlined,
   SnippetsOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 import { FiClock, FiImage } from 'react-icons/fi';
 import { HiOutlineChartBar, HiOutlineClipboardList } from 'react-icons/hi';
@@ -274,6 +275,8 @@ export default function getSystemIcons(icon) {
       return <BookOutlined />;
     case 'BiMapPin':
       return <BiMapPin />;
+    case 'FileTextOutlined':
+      return <FileTextOutlined />;
     default:
       break;
   }

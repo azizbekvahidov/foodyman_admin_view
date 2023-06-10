@@ -227,6 +227,7 @@ export default function UserEditForm({
           role !== 'manager' &&
           role !== 'moderator' &&
           role !== 'seller' &&
+          role !== 'cook' &&
           role !== 'user' && (
             <Col span={12}>
               <Form.Item
@@ -244,6 +245,23 @@ export default function UserEditForm({
               </Form.Item>
             </Col>
           )}
+
+        {role === 'cook' && (
+          <Col span={12}>
+            <Form.Item
+              label={t('shop')}
+              name='shop_id'
+              rules={[{ required: false, message: t('required') }]}
+            >
+              <DebounceSelect
+                fetchOptions={fetchUserShop}
+                className='w-100'
+                placeholder={t('select.shop')}
+                allowClear={false}
+              />
+            </Form.Item>
+          </Col>
+        )}
 
         {role === 'moderator' && (
           <Col span={12}>

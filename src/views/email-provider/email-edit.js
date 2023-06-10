@@ -8,10 +8,10 @@ import {
   removeFromMenu,
   setMenuData,
 } from '../../redux/slices/menu';
-import { fetchBanners } from '../../redux/slices/banner';
 import { useTranslation } from 'react-i18next';
 import emailService from '../../services/emailSettings';
 import Loading from '../../components/loading';
+import { fetchEmailProvider } from 'redux/slices/emailProvider';
 
 const EmailProviderEdit = () => {
   const { t } = useTranslation();
@@ -68,7 +68,7 @@ const EmailProviderEdit = () => {
         toast.success(t('successfully.created'));
         dispatch(removeFromMenu({ ...activeMenu, nextUrl }));
         navigate(`/${nextUrl}`);
-        dispatch(fetchBanners());
+        dispatch(fetchEmailProvider());
       })
       .finally(() => setLoadingBtn(false));
   };

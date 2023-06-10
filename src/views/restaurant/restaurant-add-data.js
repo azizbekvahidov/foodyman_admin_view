@@ -9,7 +9,6 @@ import {
   InputNumber,
   Row,
   Select,
-  Space,
   Switch,
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -20,7 +19,7 @@ import categoryService from '../../services/category';
 import Map from '../../components/map';
 import AddressInput from '../../components/address-input';
 import MediaUpload from '../../components/upload';
-import { AppstoreOutlined, UserAddOutlined } from '@ant-design/icons';
+import { AppstoreOutlined } from '@ant-design/icons';
 import UserModal from '../../components/shop/user-modal';
 import CategoryModal from '../../components/shop/category-modal';
 import { RefetchSearch } from '../../components/refetch-search';
@@ -46,7 +45,7 @@ const RestaurantAddData = ({
   );
 
   async function fetchUserList(search) {
-    const params = { search, roles: 'user', empty_shop: 1 };
+    const params = { search, roles: 'user', 'empty-shop': 1 };
     setUserRefetch(false);
     return userService.search(params).then((res) =>
       res.data.map((item) => ({
@@ -157,7 +156,7 @@ const RestaurantAddData = ({
                           required: item.locale === defaultLang,
                           message: t('required'),
                         },
-                        { min: 2, message: t('title.requared') },
+                        { min: 2, message: t('title.required') },
                       ]}
                       hidden={item.locale !== defaultLang}
                     >
@@ -188,7 +187,7 @@ const RestaurantAddData = ({
                       required: item.locale === defaultLang,
                       message: t('required'),
                     },
-                    { min: 3, message: t('requared') },
+                    { min: 3, message: t('required') },
                   ]}
                   hidden={item.locale !== defaultLang}
                 >

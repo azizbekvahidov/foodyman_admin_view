@@ -48,6 +48,10 @@ export default function PaymentPayloadAdd() {
 
   const onFinish = (values) => {
     delete values.payment_id;
+    if (activePayment?.label === 'FlutterWave' && !image[0]) {
+      toast.error(t('choose.payload.image'));
+      return;
+    }
     setLoadingBtn(true);
     paymentPayloadService
       .create({
@@ -56,6 +60,7 @@ export default function PaymentPayloadAdd() {
           ...values,
           logo: image[0] ? image[0].name : undefined,
           paypal_currency: values.paypal_currency?.label,
+          currency: values.currency?.label,
           paypal_validate_ssl: values?.paypal_validate_ssl
             ? Number(values?.paypal_validate_ssl)
             : undefined,
@@ -566,7 +571,7 @@ export default function PaymentPayloadAdd() {
                     </Form.Item>
                   </Col>
                   <Col span={6}>
-                    <Form.Item label={t('logo')}>
+                    <Form.Item rules={[{ required: true }]} label={t('logo')}>
                       <MediaUpload
                         type='brands'
                         imageList={image}

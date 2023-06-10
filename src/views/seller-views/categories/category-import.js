@@ -24,16 +24,6 @@ export default function SellerCategoryImport() {
     };
   };
 
-  const beforeUpload = (file) => {
-    const isXls =
-      file.type ===
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    if (!isXls) {
-      toast.error(`${file.name} is not valid file`);
-      return false;
-    }
-  };
-
   const handleUpload = ({ file, onSuccess }) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -53,7 +43,7 @@ export default function SellerCategoryImport() {
         maxCount={1}
         customRequest={handleUpload}
         defaultFileList={activeMenu?.data ? [activeMenu?.data] : null}
-        beforeUpload={beforeUpload}
+        accept='.csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       >
         <p className='ant-upload-drag-icon'>
           <InboxOutlined />

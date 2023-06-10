@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Modal, Spin, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import galleryService from '../services/gallery';
-import { IMG_URL } from '../configs/app-global';
+import galleryService from 'services/gallery';
 import { useTranslation } from 'react-i18next';
+import video_placeholder from 'assets/images/video-placeholder.png';
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -84,6 +84,24 @@ const ImageUploadSingle = ({ image, setImage, type, form, name = 'image' }) => {
       .finally(() => setLoading(false));
   };
 
+  const getMediaSource = (filename) => {
+    const re = /(?:\.([^.]+))?$/;
+    const exec = re.exec(filename);
+    switch (exec[1]) {
+      case 'mp4':
+        return 'video';
+      case 'webm':
+        return 'video';
+      case 'ogg':
+        return 'video';
+      case 'ogv':
+        return 'video';
+
+      default:
+        return 'image';
+    }
+  };
+
   return (
     <>
       <Upload
@@ -94,16 +112,37 @@ const ImageUploadSingle = ({ image, setImage, type, form, name = 'image' }) => {
         customRequest={handleUpload}
         className='picture-card'
       >
-        {image && !loading ? (
-          <img
-            src={image.url}
-            alt='avatar'
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-            }}
-          />
+        {image?.url && !loading ? (
+          getMediaSource(image.url) === 'image' ? (
+            <img
+              src={image.url}
+              alt='avatar'
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <img
+                src={video_placeholder}
+                alt={image.name}
+                width={32}
+                style={{ objectFit: 'contain' }}
+              />
+              <p>{t('video.file')}</p>
+            </div>
+          )
         ) : (
           uploadButton
         )}

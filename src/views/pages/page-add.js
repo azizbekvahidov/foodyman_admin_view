@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  Row,
-  Select,
-  Space,
-  Switch,
-} from 'antd';
+import { Button, Card, Col, Form, Input, Row, Select, Switch } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { removeFromMenu, setMenuData } from '../../redux/slices/menu';
-import { fetchPages } from '../../redux/slices/pages';
-import pageService from '../../services/pages';
+import { removeFromMenu, setMenuData } from 'redux/slices/menu';
+import { fetchPages } from 'redux/slices/pages';
 import { useTranslation } from 'react-i18next';
-import LanguageList from '../../components/language-list';
-import MediaUpload from '../../components/upload';
+import LanguageList from 'components/language-list';
+import MediaUpload from 'components/upload';
 import { IMG_URL, api_url } from 'configs/app-global';
 import { typeList } from './type-list';
 import CkeEditor from 'components/ckeEditor';

@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 import { Button, Card, Col, Form, Input, InputNumber, Row, Switch } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { removeFromMenu, setMenuData } from '../../redux/slices/menu';
-import { fetchBanners } from '../../redux/slices/banner';
 import { useTranslation } from 'react-i18next';
 import emailService from '../../services/emailSettings';
+import { fetchEmailProvider } from 'redux/slices/emailProvider';
 
 const EmailProviderAdd = () => {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ const EmailProviderAdd = () => {
         toast.success(t('successfully.created'));
         dispatch(removeFromMenu({ ...activeMenu, nextUrl }));
         navigate(`/${nextUrl}`);
-        dispatch(fetchBanners());
+        dispatch(fetchEmailProvider());
       })
       .finally(() => setLoadingBtn(false));
   };

@@ -1,11 +1,13 @@
 import request from './request';
+import requestWithoutTimeout from './requestWithoutTimeout';
 
 const brandService = {
   get: (params) => request.get('dashboard/admin/brands', { params }),
   getAll: (params) =>
     request.get('dashboard/admin/brands/paginate', { params }),
-  export: (params) => request.get('dashboard/admin/brands/export', { params }),
-  import: (params) => request.get('dashboard/admin/brands/import', { params }),
+  export: (params) =>
+    requestWithoutTimeout.get('dashboard/admin/brands/export', { params }),
+  import: (data) => request.post('dashboard/admin/brands/import', data),
   getById: (id, params) =>
     request.get(`dashboard/admin/brands/${id}`, { params }),
   create: (params) => request.post('dashboard/admin/brands', {}, { params }),

@@ -45,7 +45,7 @@ export default function BlogAdd() {
     const body = {
       type: 'blog',
       active: values.active ? 1 : 0,
-      images: [image[0]?.name],
+      images: image.length ? image.map((item) => item.name) : undefined,
       title: getTranslationFields(values),
       description: getTranslationFields(values, 'description'),
       short_desc: getTranslationFields(values, 'short_desc'),

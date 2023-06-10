@@ -53,7 +53,7 @@ const MessageSubciribedAdd = () => {
   const onFinish = (values) => {
     const body = {
       ...values,
-      type: 'subscribe',
+      type: values.type,
       email_setting_id: values.email_setting_id.value,
       send_to: moment(values.send_to).format('YYYY-MM-DD HH:mm:ss'),
     };

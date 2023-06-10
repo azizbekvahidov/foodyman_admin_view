@@ -86,8 +86,11 @@ import bookingZone from './slices/booking-zone';
 import bookingTable from './slices/booking-tables';
 import bookingTime from './slices/booking-time';
 import booking from './slices/booking';
+import bookingList from './slices/booking-list';
+import landingPage from './slices/landing-page';
 
 const rootReducer = {
+  bookingList,
   booking,
   bookingTime,
   bookingZone,
@@ -177,6 +180,7 @@ const rootReducer = {
   box,
   recipeCategory,
   reciept,
+  landingPage,
 };
 
 export default rootReducer;

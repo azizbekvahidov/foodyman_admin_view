@@ -5,7 +5,6 @@ import {
   fetchDeliverymanStatisticsCount,
   fetchSellerStatisticsCount,
   fetchStatistics,
-  fetchWaiterStatisticsCount,
 } from '../../redux/slices/statistics/count';
 import {
   fetchSellerTopCustomers,
@@ -28,7 +27,7 @@ import GeneralDashboard from './generalDashboard';
 import DeliverymanDashboard from './deliverymanDashboard';
 import ManagerDashboard from './managerDashboard';
 import ModeratorDashboard from './moderatorDashboard';
-import WaiterDashboard from './waiterDashboard';
+import { Navigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -65,9 +64,6 @@ export default function Dashboard() {
       case 'deliveryman':
         dispatch(fetchDeliverymanStatisticsCount());
         break;
-      case 'waiter':
-        dispatch(fetchWaiterStatisticsCount());
-        break;
 
       default:
         break;
@@ -94,7 +90,7 @@ export default function Dashboard() {
       case 'deliveryman':
         return <DeliverymanDashboard />;
       case 'waiter':
-        return <WaiterDashboard />;
+        return <Navigate to='/waiter/orders-board' replace />;
 
       default:
         return null;

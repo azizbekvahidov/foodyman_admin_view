@@ -46,7 +46,7 @@ export default function BlogEdit() {
     const body = {
       type: 'blog',
       active: values.active ? 1 : 0,
-      images: [image[0]?.name],
+      images: image.length ? image.map((item) => item.name) : undefined,
       title: getTranslationFields(languages, values),
       description: getTranslationFields(languages, values, 'description'),
       short_desc: getTranslationFields(languages, values, 'short_desc'),

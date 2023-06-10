@@ -72,7 +72,7 @@ const CustomDrower = ({ handleClose, openDrower, setMenuData }) => {
       >
         <Form.Item
           label={t('language')}
-          rules={[{ required: true, message: t('requared') }]}
+          rules={[{ required: true, message: t('required') }]}
           name='equal'
         >
           <Select>
@@ -82,7 +82,7 @@ const CustomDrower = ({ handleClose, openDrower, setMenuData }) => {
         </Form.Item>
         <Form.Item
           label={t('locale')}
-          rules={[{ required: true, message: t('requared') }]}
+          rules={[{ required: true, message: t('required') }]}
           name='lang'
         >
           <Select>
